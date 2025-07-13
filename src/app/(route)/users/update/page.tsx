@@ -1,11 +1,13 @@
 'use client';
 
 import React from 'react';
-import { useRecoilState } from 'recoil';
-import { userState } from '@/app/recoil/atoms';
+import { useAtom } from 'jotai';
+import { userState } from '@/app/store';
+import Link from 'next/link';
 
 const UserUpdatePage = () => {
-  const [user, setUser] = useRecoilState(userState);
+  const [user, setUser] = useAtom(userState);
+  console.log(user);
 
   return (
     <div>
@@ -25,6 +27,7 @@ const UserUpdatePage = () => {
       <button onClick={() => setUser({ ...user, name: 'David', email: 'david@example.com' })}>
         Update
       </button>
+      <Link href='/todo-list'>Go to Todo List Page</Link>
     </div>
   );
 };

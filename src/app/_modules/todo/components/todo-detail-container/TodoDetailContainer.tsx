@@ -3,7 +3,7 @@
 import * as S from './styled';
 import { useParams, useSearchParams } from 'next/navigation';
 
-const TodoListDetailContainer = () => {
+const TodoDetailContainer = () => {
   const { id } = useParams();
   const searchParams = useSearchParams();
   const code = searchParams.get('code');
@@ -37,4 +37,4 @@ const TodoListDetailContainer = () => {
   );
 };
 
-export default TodoListDetailContainer;
+export default TodoDetailContainer;
