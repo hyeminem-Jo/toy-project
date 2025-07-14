@@ -27,7 +27,7 @@ const UserUpdatePage = () => {
       <button onClick={() => setUser({ ...user, name: 'David', email: 'david@example.com' })}>
         Update
       </button>
-      <Link href='/todo-list'>Go to Todo List Page</Link>
+      <Link href='/todo'>Go to Todo List Page</Link>
     </div>
   );
 };
