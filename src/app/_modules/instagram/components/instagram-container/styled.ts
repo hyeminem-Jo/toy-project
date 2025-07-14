@@ -8,5 +8,5 @@ export const InstagramContainer = styled.div`
 
 export const InstagramContent = styled.div`
   line-height: 1.6;
-  color: orange;
+  /* color: orange; */
 `;

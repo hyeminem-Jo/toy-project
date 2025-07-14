@@ -18,7 +18,10 @@
     "jotai": "^2.12.5",
     "next": "15.3.5",
     "react": "19.1.0",
+    "react-datepicker": "^8.4.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "19.1.0",
+    "react-hook-form": "^7.60.0",
     "styled-reset": "^4.5.2"
   },
   "devDependencies": {

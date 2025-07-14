@@ -1,11 +1,29 @@
 import styled from '@emotion/styled';
+import { BREAKPOINT } from '@/app/_modules/common/constant/breakpoint';
 
-export const TodoListContainer = styled.div`
+export const TodoContainer = styled.div`
   padding: 2rem;
   max-width: 800px;
   margin: 0 auto;
 `;
 
-export const TodoListContent = styled.div`
-  line-height: 1.6;
+export const TodoContent = styled.div`
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+`;
+
+export const TodoTitle = styled.h1`
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+`;
+
+export const TodoList = styled.ul`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
 `;

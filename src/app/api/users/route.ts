@@ -5,21 +5,25 @@ const DB = [
     id: 1,
     name: 'David',
     email: 'david1111@example.com',
+    completed: true,
   },
   {
     id: 2,
     name: 'Jane Doe',
     email: 'jane.doe@example.com',
+    completed: false,
   },
   {
     id: 3,
     name: 'John Smith',
     email: 'john.smith@example.com',
+    completed: false,
   },
   {
     id: 4,
     name: 'David',
     email: 'david4444@example.com',
+    completed: false,
   },
 ];
 
