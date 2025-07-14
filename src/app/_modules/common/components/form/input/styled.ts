@@ -11,6 +11,7 @@ type StyleProps = {
   $width?: number;
   $isUnderline?: boolean;
   $isReadonly?: boolean;
+  $isLineThrough?: boolean;
 };
 
 export const InputFieldset = styled.div`
@@ -45,6 +46,12 @@ export const Input = styled.input<StyleProps>`
       border-radius: 0;
       padding: 0.8rem 1rem;
     `};
+
+  ${({ $isLineThrough }) =>
+    $isLineThrough &&
+    css`
+      text-decoration: line-through;
+    `}
 `;
 
 export const InputWrap = styled.div<StyleProps>`
