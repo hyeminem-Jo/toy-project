@@ -4,7 +4,7 @@ import * as S from './styled';
 import Checkbox from '@/app/_modules/common/components/form/checkbox/Checkbox';
 import Input from '@/app/_modules/common/components/form/input/Input';
 import IconButton from '@/app/_modules/common/components/button/icon-button/IconButton';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CustomDatePicker from '@/app/_modules/common/components/date-picker/CustomDatePicker';
 
 const TodoItem = ({
@@ -20,18 +20,26 @@ const TodoItem = ({
   onDeleteTodo?: (index: number) => void;
   onToggleCheck?: (index: number, checked: boolean) => void;
 }) => {
-  const [isChecked, setIsChecked] = useState(true);
+  const [isCompleted, setIsCompleted] = useState(true);
   const [todoValue, setTodoValue] = useState(todo);
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [isEdit, setIsEdit] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null); // ✅ 1. ref 생성
+
+  useEffect(() => {
+    if (isEdit) {
+      inputRef.current?.focus();
+    }
+  }, [isEdit]);
 
   return (
     <S.TodoListItem key={index}>
       <S.TodoListItemWrap>
         <Checkbox
           id={`todo-item-checkbox-${index}`}
-          checked={isChecked}
+          checked={isCompleted}
           onChange={(e) => {
-            setIsChecked(e.target.checked);
+            setIsCompleted(e.target.checked);
             onToggleCheck?.(index, e.target.checked);
           }}
         />
@@ -43,8 +51,9 @@ const TodoItem = ({
             onUpdateTodo?.(index, e.target.value);
           }}
           isUnderline
-          isLineThrough={isChecked}
-          // isReadonly
+          isLineThrough={isCompleted && !isEdit}
+          isReadonly={!isEdit}
+          ref={inputRef}
         />
       </S.TodoListItemWrap>
       <S.TodoListItemWrap2>
@@ -57,7 +66,17 @@ const TodoItem = ({
           />
         </S.TodoListItemWrapDate>
         <S.TodoListItemIcons>
-          <IconButton iconName='pen' onClick={() => {}} />
+          {isEdit ? (
+            <IconButton
+              iconName='check'
+              onClick={() => {
+                setIsEdit(false);
+                onUpdateTodo?.(index, todoValue);
+              }}
+            />
+          ) : (
+            <IconButton iconName='pen' onClick={() => setIsEdit(true)} />
+          )}
           <IconButton iconName='trash' onClick={() => onDeleteTodo?.(index)} />
         </S.TodoListItemIcons>
       </S.TodoListItemWrap2>

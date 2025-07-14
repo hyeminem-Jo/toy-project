@@ -20,6 +20,7 @@ export const InputFieldset = styled.div`
 
 export const Input = styled.input<StyleProps>`
   width: 100%;
+  font-size: 1.6rem;
   font-weight: 400;
   line-height: 160%;
   white-space: nowrap;
@@ -29,6 +30,7 @@ export const Input = styled.input<StyleProps>`
   border: 1px solid #e0e0e0;
   border-radius: 0.8rem;
   padding: 1.3rem 1.6rem;
+  padding-right: 5rem;
   &:focus {
     border-color: #000;
   }
@@ -59,12 +61,14 @@ export const InputWrap = styled.div<StyleProps>`
   width: ${({ $width }) => ($width ? `${$width}px` : '100%')};
 `;
 
-export const InputSearchIcon = styled.i`
+export const InputSearchButton = styled.button`
   position: absolute;
-  right: 1.6rem;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
   color: #666;
+  padding: 0 1.6rem;
+  height: 100%;
 `;
 
 export const InputInfo = styled.div<StyleProps>`

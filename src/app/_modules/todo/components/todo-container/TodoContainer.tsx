@@ -63,9 +63,10 @@ const TodoContainer = () => {
       <S.TodoTitle>나의 할 일 ✅</S.TodoTitle>
       <S.TodoContent>
         <Input
-          placeholder='할 일을 입력하세요'
+          placeholder='할 일을 검색하세요.'
           value={todoInput}
           onChange={(e) => setTodoInput(e.target.value)}
+          isSearch
         />
 
         <S.TodoList>

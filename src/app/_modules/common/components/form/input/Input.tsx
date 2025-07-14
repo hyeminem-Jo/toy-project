@@ -20,11 +20,12 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   isLineThrough?: boolean;
+  ref?: React.RefObject<HTMLInputElement>;
 }
 
 function Input({
   type = 'text',
-  maxLength = 20,
+  maxLength = 50,
   isLengthCount = true,
   placeholder = '',
   onChange,
@@ -39,6 +40,7 @@ function Input({
   id,
   name,
   isLineThrough = false,
+  ref,
   ...rest
 }: InputProps) {
   const [isFocus, setIsFocus] = useState(false);
@@ -67,10 +69,13 @@ function Input({
           placeholder={placeholder}
           disabled={disabled || isReadonly}
           $isLineThrough={isLineThrough && isReadonly}
+          ref={ref}
           {...rest}
         />
         {isSearch && (
-          <S.InputSearchIcon className='fa-solid fa-magnifying-glass'></S.InputSearchIcon>
+          <S.InputSearchButton>
+            <i className='fa-solid fa-magnifying-glass'></i>
+          </S.InputSearchButton>
         )}
       </S.InputWrap>
     </S.InputFieldset>
