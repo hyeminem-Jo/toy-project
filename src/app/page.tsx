@@ -1,20 +1,11 @@
 import { Metadata } from 'next';
-import Link from 'next/link';
+import HomeContainer from './_modules/home/home-container/HomeContainer';
 
 export const metadata: Metadata = {
-  title: "Hyejin's Side Project - Home",
-  description: "Hyejin's Side Project - Home 입니다.",
+  title: "Hyejin's Toy Project | 홈",
+  description: '홈페이지 입니다.',
 };
 
 export default function Home() {
-  return (
-    <main>
-      <h1>Home</h1>
-      <i className='fa-solid fa-house'></i>
-      <Link href='/users'>Users</Link>
-      <Link href='/todo'>Todo List</Link>
-      <Link href='/todo/1'>Todo List Detail</Link>
-      <Link href='/instagram'>Instagram</Link>
-    </main>
-  );
+  return <HomeContainer />;
 }
