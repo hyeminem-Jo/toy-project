@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import Lottie from 'react-lottie';
 
 type IconButtonProps = {
   $heightFull: boolean;

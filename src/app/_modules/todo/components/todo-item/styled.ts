@@ -35,6 +35,7 @@ export const TodoListItemWrap2 = styled.div`
   gap: 1rem;
 
   @media (max-width: ${BREAKPOINT}px) {
+    width: 100%;
     margin-top: 0.7rem;
     justify-content: space-between;
   }

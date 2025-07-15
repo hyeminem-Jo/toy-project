@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { searchUsers } from '@/app/actions/userActions';
+import { searchUsers } from 'actions/userActions';
 
 interface User {
   id: number;

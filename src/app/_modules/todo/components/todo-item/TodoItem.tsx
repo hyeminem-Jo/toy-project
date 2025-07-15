@@ -6,25 +6,54 @@ import Input from '@/app/_modules/common/components/form/input/Input';
 import IconButton from '@/app/_modules/common/components/button/icon-button/IconButton';
 import { useEffect, useRef, useState } from 'react';
 import CustomDatePicker from '@/app/_modules/common/components/date-picker/CustomDatePicker';
+import { TodoRow, updateTodo, deleteTodo } from 'actions/todoActions';
+import { useMutation } from '@tanstack/react-query';
+import { queryClient } from '@/app/config/ReactQueryProvider';
 
 const TodoItem = ({
   index,
   todo,
-  onUpdateTodo,
-  onDeleteTodo,
-  onToggleCheck,
+  isNewlyCreated = false,
+  onEditComplete,
 }: {
   index: number;
-  todo: string;
-  onUpdateTodo?: (index: number, value: string) => void;
-  onDeleteTodo?: (index: number) => void;
-  onToggleCheck?: (index: number, checked: boolean) => void;
+  todo: TodoRow;
+  isNewlyCreated?: boolean;
+  onEditComplete?: () => void;
 }) => {
-  const [isCompleted, setIsCompleted] = useState(true);
-  const [todoValue, setTodoValue] = useState(todo);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
-  const [isEdit, setIsEdit] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null); // ✅ 1. ref 생성
+  const [isEdit, setIsEdit] = useState(isNewlyCreated);
+  const [isCompleted, setIsCompleted] = useState(todo?.completed ?? false);
+  const [todoTitle, setTodoTitle] = useState(todo?.title ?? '');
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    todo.endDate ? new Date(todo.endDate) : null,
+  );
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const updateTodoMutation = useMutation({
+    mutationFn: () =>
+      updateTodo({
+        id: todo.id,
+        title: todoTitle,
+        completed: isCompleted,
+        endDate: selectedDate ?? null,
+      }),
+    onSuccess: () => {
+      setIsEdit(false);
+      onEditComplete?.(); // 편집 완료시 초기화
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    },
+    onError: (error: any) => {
+      alert(error.message);
+    },
+  });
+
+  const deleteTodoMutation = useMutation({
+    mutationFn: () => deleteTodo(todo.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['todos'] });
+    },
+  });
 
   useEffect(() => {
     if (isEdit) {
@@ -32,23 +61,29 @@ const TodoItem = ({
     }
   }, [isEdit]);
 
+  // 새로 생성된 할 일인 경우 자동으로 편집 모드
+  useEffect(() => {
+    if (isNewlyCreated) {
+      setIsEdit(true);
+    }
+  }, [isNewlyCreated]);
+
   return (
     <S.TodoListItem key={index}>
       <S.TodoListItemWrap>
         <Checkbox
           id={`todo-item-checkbox-${index}`}
           checked={isCompleted}
-          onChange={(e) => {
-            setIsCompleted(e.target.checked);
-            onToggleCheck?.(index, e.target.checked);
+          onChange={async (e) => {
+            await setIsCompleted(e.target.checked);
+            await updateTodoMutation.mutate();
           }}
         />
         <Input
           id={`todo-item-${index}`}
-          value={todoValue}
+          value={todoTitle}
           onChange={(e) => {
-            setTodoValue(e.target.value);
-            onUpdateTodo?.(index, e.target.value);
+            setTodoTitle(e.target.value);
           }}
           isUnderline
           isLineThrough={isCompleted && !isEdit}
@@ -63,21 +98,26 @@ const TodoItem = ({
             id={`todo-item-date-${index}`}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
+            disabled={updateTodoMutation.isPending || !isEdit}
           />
         </S.TodoListItemWrapDate>
         <S.TodoListItemIcons>
           {isEdit ? (
             <IconButton
               iconName='check'
-              onClick={() => {
-                setIsEdit(false);
-                onUpdateTodo?.(index, todoValue);
+              loading={updateTodoMutation.isPending}
+              onClick={async () => {
+                await updateTodoMutation.mutate();
               }}
             />
           ) : (
             <IconButton iconName='pen' onClick={() => setIsEdit(true)} />
           )}
-          <IconButton iconName='trash' onClick={() => onDeleteTodo?.(index)} />
+          <IconButton
+            iconName='trash'
+            onClick={() => deleteTodoMutation.mutate()}
+            loading={deleteTodoMutation.isPending}
+          />
         </S.TodoListItemIcons>
       </S.TodoListItemWrap2>
     </S.TodoListItem>
