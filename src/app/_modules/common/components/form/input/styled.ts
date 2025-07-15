@@ -69,6 +69,10 @@ export const InputSearchButton = styled.button`
   color: #666;
   padding: 0 1.6rem;
   height: 100%;
+
+  i::before {
+    font-size: 1.8rem;
+  }
 `;
 
 export const InputInfo = styled.div<StyleProps>`
