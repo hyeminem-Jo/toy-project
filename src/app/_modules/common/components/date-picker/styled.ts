@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
-export const DatePickerWrapper = styled.div`
+export const DatePickerWrapper = styled.div<{ $disabled: boolean }>`
   .react-datepicker-wrapper {
     min-width: 10rem;
     border: 1px solid #e0e0e0;
@@ -10,7 +11,11 @@ export const DatePickerWrapper = styled.div`
     font-size: 1.4rem;
     font-weight: 600;
     height: 100%;
-    /* box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 7px 0; */
+    ${({ $disabled }) =>
+      !$disabled &&
+      css`
+        border-color: orange;
+      `}
   }
 
   .react-datepicker-popper {

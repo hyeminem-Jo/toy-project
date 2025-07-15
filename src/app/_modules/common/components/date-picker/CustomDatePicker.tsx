@@ -16,7 +16,7 @@ const CustomDatePicker = ({
   disabled = false,
 }: CustomDatePickerProps) => {
   return (
-    <S.DatePickerWrapper>
+    <S.DatePickerWrapper $disabled={disabled}>
       <DatePicker
         dateFormat='yyyy.MM.dd'
         shouldCloseOnSelect
