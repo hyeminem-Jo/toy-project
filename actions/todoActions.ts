@@ -18,7 +18,8 @@ export async function getTodos({ searchInput = '' }): Promise<TodoRow[]> {
     .from('todo')
     .select('*') // 모든 필드 선택
     .like('title', `%${searchInput}%`) // 검색된 할 일 찾기, 빈값이면 전체 할 일 찾기
-    .order('created_at', { ascending: true }); // 생성일 기준 오름차순 정렬
+    .order('completed', { ascending: true }) // completed false 를 위로, true 를 아래로 정렬
+    .order('created_at', { ascending: true }); // 각 그룹 내에서 생성일 기준 오름차순 정렬
 
   if (error) handleError(error);
   return data;
