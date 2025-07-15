@@ -74,8 +74,8 @@ export const CustomCheckbox = styled.div<{ $isChecked?: boolean; $error?: boolea
   ${({ $isChecked }) =>
     $isChecked &&
     css`
-      background-color: #000;
-      border-color: #000;
+      background-color: #222;
+      border-color: #222;
       i {
         opacity: 1;
         color: #fff !important;

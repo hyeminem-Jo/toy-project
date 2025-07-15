@@ -32,7 +32,7 @@ export const Input = styled.input<StyleProps>`
   padding: 1.3rem 1.6rem;
   padding-right: 5rem;
   &:focus {
-    border-color: #000;
+    border-color: #222;
   }
   ${({ $isReadonly }) =>
     $isReadonly &&
