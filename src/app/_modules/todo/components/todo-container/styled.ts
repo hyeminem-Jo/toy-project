@@ -32,3 +32,11 @@ export const TodoList = styled.ul`
     margin-bottom: 1.2rem;
   }
 `;
+
+export const TodoListEmpty = styled.p`
+  margin: 5rem auto;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #bbb;
+  text-align: center;
+`;

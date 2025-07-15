@@ -71,6 +71,9 @@ const TodoContainer = () => {
                 }}
               />
             ))}
+          {todosQuery?.data?.length === 0 && (
+            <S.TodoListEmpty>할 일이 없습니다. 🙁</S.TodoListEmpty>
+          )}
         </S.TodoList>
         {todosQuery.isPending && <Loading />}
         {todosQuery?.data && (
