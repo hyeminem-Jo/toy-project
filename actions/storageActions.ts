@@ -17,7 +17,8 @@ export async function uploadFile(formData: FormData) {
     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET)
     .upload(file.name, file, { upsert: true });
 
-  handleError(error);
+  // handleError(error);
+  if (error) handleError(error);
   return data;
 }
 
