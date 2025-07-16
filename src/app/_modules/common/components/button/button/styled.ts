@@ -11,6 +11,7 @@ export const Button = styled.button<ButtonProps>`
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
+  flex-shrink: 0;
   width: ${({ $widthFull }) => ($widthFull ? '100%' : 'auto')};
   padding: 0.8rem 1.6rem;
   border: 1px solid ${({ $filled }) => ($filled ? '#222' : '#e0e0e0')};
