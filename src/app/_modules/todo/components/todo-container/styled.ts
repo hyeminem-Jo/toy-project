@@ -2,8 +2,7 @@ import styled from '@emotion/styled';
 import { BREAKPOINT } from '@/app/_modules/common/constant/breakpoint';
 
 export const TodoContainer = styled.div`
-  padding: 2rem;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
 `;
 
@@ -16,9 +15,13 @@ export const TodoContent = styled.div`
 `;
 
 export const TodoTitle = styled.h1`
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: 700;
   text-align: center;
+
+  @media (max-width: ${BREAKPOINT}px) {
+    font-size: 2.5rem;
+  }
 `;
 
 export const TodoList = styled.ul`

@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import Lottie from 'react-lottie';
 
 type IconButtonProps = {
   $heightFull: boolean;
   disabled: boolean;
+  $color: 'white' | 'black';
+  $iconName: string;
 };
 
 export const IconButton = styled.button<IconButtonProps>`
@@ -14,5 +17,20 @@ export const IconButton = styled.button<IconButtonProps>`
   border-radius: 0.8rem;
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
-  background-color: #fff;
+  background-color: ${({ $color }) => ($color === 'white' ? '#fff' : '#222')};
+  opacity: 1;
+
+  i::before {
+    color: ${({ $color }) => ($color === 'white' ? '#222' : '#fff')};
+  }
+
+  &:hover {
+    ${({ $iconName }) =>
+      $iconName === 'trash' &&
+      css`
+        i::before {
+          color: red;
+        }
+      `}
+  }
 `;

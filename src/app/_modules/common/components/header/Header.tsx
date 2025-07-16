@@ -5,7 +5,7 @@ import * as S from './styled';
 const Header = () => {
   return (
     <S.HeaderContainer>
-      <S.HeaderTitle>🧸 Daily -D</S.HeaderTitle>
+      <S.HeaderTitle>Hyejin's Toy Project</S.HeaderTitle>
     </S.HeaderContainer>
   );
 };

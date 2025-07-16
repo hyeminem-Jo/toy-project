@@ -8,7 +8,6 @@ import { ReactQueryProvider } from './config/ReactQueryProvider';
 import './_modules/common/styles/reset.css';
 import './_modules/common/styles/globals.css';
 import './_modules/common/styles/font.css';
-import Header from './_modules/common/components/header/Header';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -46,7 +45,6 @@ export default function RootLayout({
           <Provider>
             <EmotionRegistry>
               {/* <Global styles={globalStyles} /> */}
-              <Header />
               {children}
             </EmotionRegistry>
           </Provider>

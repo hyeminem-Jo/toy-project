@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './styled';
 import Lottie from 'react-lottie';
-import spinner from '../../../../../../../public/assets/lotties/spinner.json';
+import spinner from '@/assets/lotties/spinner.json';
 
 interface ButtonProps {
   text: string;

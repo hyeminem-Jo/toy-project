@@ -3,7 +3,6 @@
 import * as S from './styled';
 import { useState } from 'react';
 import { useIsMobile } from '@/app/_modules/common/hooks/useIsMobile';
-import IconButton from '../../button/icon-button/IconButton';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;

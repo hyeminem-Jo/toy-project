@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import TodoListContainer from '@/app/_modules/todo/components/todo-container/TodoContainer';
+import AppLayout from '@/app/_modules/common/components/layout/AppLayout';
 
 export const metadata: Metadata = {
   title: "Hyejin's Toy Project | 나의 할 일 ✅",
@@ -7,5 +8,9 @@ export const metadata: Metadata = {
 };
 
 export default function TodoListPage() {
-  return <TodoListContainer />;
+  return (
+    <AppLayout>
+      <TodoListContainer />
+    </AppLayout>
+  );
 }

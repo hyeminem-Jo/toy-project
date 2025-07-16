@@ -10,6 +10,7 @@ interface IconButtonProps {
   disabled?: boolean;
   type?: 'button' | 'submit';
   loading?: boolean;
+  color?: 'white' | 'black';
 }
 
 const IconButton = ({
@@ -19,6 +20,7 @@ const IconButton = ({
   disabled = false,
   type = 'button',
   loading = false,
+  color = 'white',
 }: IconButtonProps) => {
   const defaultOptions = {
     loop: true,
@@ -32,6 +34,8 @@ const IconButton = ({
       onClick={onClick}
       $heightFull={heightFull}
       disabled={disabled || loading}
+      $color={color}
+      $iconName={iconName}
     >
       {loading ? <Lottie options={defaultOptions} /> : <i className={`fa-solid fa-${iconName}`} />}
     </S.IconButton>
