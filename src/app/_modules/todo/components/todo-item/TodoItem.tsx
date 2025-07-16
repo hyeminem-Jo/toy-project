@@ -74,9 +74,9 @@ const TodoItem = ({
         <Checkbox
           id={`todo-item-checkbox-${index}`}
           checked={isCompleted}
-          onChange={async (e) => {
-            await setIsCompleted(e.target.checked);
-            await updateTodoMutation.mutate();
+          onChange={(e) => {
+            setIsCompleted(e.target.checked);
+            updateTodoMutation.mutate();
           }}
         />
         <Input
@@ -106,8 +106,8 @@ const TodoItem = ({
             <IconButton
               iconName='check'
               loading={updateTodoMutation.isPending}
-              onClick={async () => {
-                await updateTodoMutation.mutate();
+              onClick={() => {
+                updateTodoMutation.mutate();
               }}
             />
           ) : (

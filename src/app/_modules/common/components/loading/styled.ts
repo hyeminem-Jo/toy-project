@@ -13,6 +13,6 @@ export const LoadingContainer = styled.div`
 
 export const LoadingText = styled.strong`
   font-size: 1.5rem;
-  font-weight: 700;
+  font-weight: 600;
   text-align: center;
 `;
