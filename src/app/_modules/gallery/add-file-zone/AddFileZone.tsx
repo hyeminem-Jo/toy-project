@@ -21,7 +21,7 @@ const AddFileZone = () => {
     return `${safeBase}_${timestamp}${ext}`;
   };
 
-  // API Route로 파일 업로드 (서버액션으로 파일데이터 업로드 실행이 안되는 상황)
+  // API Route로 파일 업로드 (서버액션으로 파일 형식 데이터 업로드 실행이 안되는 상황)
   const handleUpload = async (formData: FormData) => {
     const res = await fetch('/api/upload', {
       method: 'POST',

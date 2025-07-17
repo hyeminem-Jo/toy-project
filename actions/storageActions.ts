@@ -23,19 +23,11 @@ function handleError(error: Error) {
 //   return data;
 // }
 
+// 이미지 리스트 조회
 export async function searchFiles(search: string = '') {
   const supabase = await createServerSupabaseClient();
 
-  // 빈 검색어인 경우 모든 파일을 가져옴
-  if (!search.trim()) {
-    const { data, error } = await supabase.storage
-      .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET)
-      .list(null);
-    if (error) handleError(error);
-    return data;
-  }
-
-  // 검색어가 있는 경우, 모든 파일을 가져온 후 클라이언트에서 필터링
+  // 모든 파일을 가져옴
   const { data, error } = await supabase.storage
     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET)
     .list(null);
@@ -43,14 +35,26 @@ export async function searchFiles(search: string = '') {
   if (error) handleError(error);
 
   if (data) {
-    const filteredData = data.filter((file: FileObject) => {
-      const fileName = file.name.toLowerCase();
-      const searchTerm = search.toLowerCase();
+    let filteredData = data;
 
-      return fileName.includes(searchTerm);
+    // 검색어가 있는 경우 필터링
+    if (search.trim()) {
+      filteredData = data.filter((file: FileObject) => {
+        const fileName = file.name.toLowerCase();
+        const searchTerm = search.toLowerCase();
+
+        return fileName.includes(searchTerm);
+      });
+    }
+
+    // 최신순으로 정렬 (created_at 기준 내림차순)
+    const sortedData = filteredData.sort((a: FileObject, b: FileObject) => {
+      const dateA = new Date(a.created_at).getTime();
+      const dateB = new Date(b.created_at).getTime();
+      return dateB - dateA; // 내림차순 (최신이 먼저)
     });
 
-    return filteredData;
+    return sortedData;
   }
 
   return data;
