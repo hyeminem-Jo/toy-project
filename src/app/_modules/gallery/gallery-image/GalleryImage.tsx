@@ -3,6 +3,9 @@ import * as S from './styled';
 import IconButton from '@/app/_modules/common/components/button/icon-button/IconButton';
 import { getImageUrl } from 'utils/supabase/storage';
 import DateUtil from '@/app/_modules/common/utils/dateUtil';
+import { useMutation } from '@tanstack/react-query';
+import { deleteFile } from 'actions/storageActions';
+import { queryClient } from '@/app/config/ReactQueryProvider';
 
 const GalleryImage = ({
   imageName,
@@ -13,10 +16,26 @@ const GalleryImage = ({
   imageUpdatedAt: string;
   priority?: boolean;
 }) => {
+  const deleteImageMutation = useMutation({
+    mutationFn: deleteFile,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['images'] });
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
   return (
     <S.GalleryImageContainer>
       <S.GalleryImageContainerOverlay className='overlay'>
-        <IconButton iconName='trash' color='black' />
+        <IconButton
+          type='button'
+          iconName='trash'
+          color='black'
+          loading={deleteImageMutation.isPending}
+          onClick={() => deleteImageMutation.mutate(imageName)}
+        />
       </S.GalleryImageContainerOverlay>
       <S.GalleryImageTape src='/assets/images/tape.png' alt='tape' />
       <S.GalleryImageWrap>
