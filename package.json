@@ -22,13 +22,13 @@
     "dayjs": "^1.11.13",
     "firebase": "^11.10.0",
     "jotai": "^2.12.5",
+    "lottie-react": "^2.4.1",
     "next": "15.3.5",
     "react": "19.1.0",
     "react-datepicker": "^8.4.0",
     "react-device-detect": "^2.2.3",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.60.0",
-    "react-lottie": "^1.2.10",
     "styled-reset": "^4.5.2"
   },
   "devDependencies": {
@@ -37,7 +37,6 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "@types/react-lottie": "^1.2.10",
     "eslint": "^9",
     "eslint-config-next": "15.3.5",
     "typescript": "^5"

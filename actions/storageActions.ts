@@ -9,18 +9,18 @@ function handleError(error: Error) {
   }
 }
 
-export async function uploadFile(formData: FormData) {
-  const supabase = await createServerSupabaseClient();
-  const file = formData.get('file') as File;
+// export async function uploadFile(formData: FormData) {
+//   const supabase = await createServerSupabaseClient();
+//   const file = formData.get('file') as File;
 
-  const { data, error } = await supabase.storage
-    .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET)
-    .upload(file.name, file, { upsert: true });
+//   const { data, error } = await supabase.storage
+//     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET)
+//     .upload(file.name, file, { upsert: true });
 
-  // handleError(error);
-  if (error) handleError(error);
-  return data;
-}
+//   // handleError(error);
+//   if (error) handleError(error);
+//   return data;
+// }
 
 export async function searchFiles(search: string = '') {
   const supabase = await createServerSupabaseClient();

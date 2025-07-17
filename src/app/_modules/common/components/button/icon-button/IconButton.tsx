@@ -1,7 +1,7 @@
 import React from 'react';
 import * as S from './styled';
-import Lottie from 'react-lottie';
-import spinner from '../../../../../../../public/assets/lotties/spinner.json';
+import Lottie from 'lottie-react';
+import spinner from '@/assets/lotties/spinner.json';
 
 interface IconButtonProps {
   iconName: string;
@@ -22,12 +22,6 @@ const IconButton = ({
   loading = false,
   color = 'white',
 }: IconButtonProps) => {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: spinner,
-  };
-
   return (
     <S.IconButton
       type={type}
@@ -37,7 +31,11 @@ const IconButton = ({
       $color={color}
       $iconName={iconName}
     >
-      {loading ? <Lottie options={defaultOptions} /> : <i className={`fa-solid fa-${iconName}`} />}
+      {loading ? (
+        <Lottie animationData={spinner} loop={true} />
+      ) : (
+        <i className={`fa-solid fa-${iconName}`} />
+      )}
     </S.IconButton>
   );
 };

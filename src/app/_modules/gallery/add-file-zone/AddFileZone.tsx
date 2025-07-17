@@ -7,7 +7,7 @@ import Button from '@/app/_modules/common/components/button/button/Button';
 const AddFileZone = () => {
   const fileRef = useRef<HTMLInputElement>(null);
 
-  // 파일명을 영문, 숫자, -, _ 만 남기고 나머지는 _로 치환 + 중복 방지용 타임스탬프 추가
+  // 파일명을 영문, 숫자, -, _ 만 남기고 나머지는 _로 치환, 중복 방지용 타임스탬프 추가
   const toSafeFileName = (name: string) => {
     const ext = name.includes('.') ? '.' + name.split('.').pop() : '';
     const base = name.replace(/\.[^/.]+$/, '');
@@ -16,7 +16,7 @@ const AddFileZone = () => {
     return `${safeBase}_${timestamp}${ext}`;
   };
 
-  // API Route로 파일 업로드
+  // API Route로 파일 업로드 (서버액션으로 파일데이터 업로드 실행이 안되는 상황)
   const handleUpload = async (formData: FormData) => {
     const res = await fetch('/api/upload', {
       method: 'POST',

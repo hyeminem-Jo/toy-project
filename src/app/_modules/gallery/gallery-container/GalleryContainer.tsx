@@ -30,7 +30,7 @@ const GalleryContainer = () => {
             isSearch
           />
           <AddFileZone />
-          <GalleryImageList />
+          <GalleryImageList searchInput={searchInput} />
         </S.GalleryContent>
       </S.GalleryContainer>
     </AppLayout>

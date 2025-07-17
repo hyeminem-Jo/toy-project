@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './styled';
-import Lottie from 'react-lottie';
+import Lottie from 'lottie-react';
 import spinner from '@/assets/lotties/spinner.json';
 
 interface ButtonProps {
@@ -24,12 +24,6 @@ const Button = ({
   filled = false,
   loading = false,
 }: ButtonProps) => {
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: spinner,
-  };
-
   return (
     <S.Button
       type={type}
@@ -38,7 +32,7 @@ const Button = ({
       $filled={filled}
       disabled={disabled || loading}
     >
-      {loading && <Lottie options={defaultOptions} width={20} height={20} />}
+      {loading && <Lottie animationData={spinner} loop={true} style={{ width: 20, height: 20 }} />}
       {iconName && !loading && <i className={`fa-solid fa-${iconName}`} />}
       <S.ButtonText>{text}</S.ButtonText>
     </S.Button>

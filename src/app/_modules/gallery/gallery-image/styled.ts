@@ -16,9 +16,10 @@ export const GalleryImageContainerOverlay = styled.div`
   opacity: 0;
   visibility: hidden;
   transition: all 0.15s ease-in-out;
+  border-radius: 0.8rem;
 `;
 
-export const GalleryImageContainer = styled.div`
+export const GalleryImageContainer = styled.li`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -27,7 +28,6 @@ export const GalleryImageContainer = styled.div`
   border-radius: 0.8rem;
   background-color: #fff;
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.1);
-  position: relative;
   aspect-ratio: 1 / 1.2;
 
   &:hover {
