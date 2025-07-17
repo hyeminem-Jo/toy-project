@@ -3,6 +3,7 @@
 import React, { useRef } from 'react';
 import * as S from './styled';
 import Button from '@/app/_modules/common/components/button/button/Button';
+import { queryClient } from '@/app/config/ReactQueryProvider';
 
 const AddFileZone = () => {
   const fileRef = useRef<HTMLInputElement>(null);
@@ -44,6 +45,7 @@ const AddFileZone = () => {
           formData.append('file', safeFile);
           try {
             const result = await handleUpload(formData);
+            queryClient.invalidateQueries({ queryKey: ['images'] });
             console.log(result);
           } catch (err) {
             alert((err as Error).message);
