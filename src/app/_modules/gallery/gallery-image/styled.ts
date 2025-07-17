@@ -62,7 +62,6 @@ export const GalleryImageWrap = styled.div`
   position: relative;
   width: 100%;
   height: 50%;
-  /* aspect-ratio: 1 / 2; */
 `;
 
 export const GalleryImage = styled(Image)`
@@ -74,10 +73,16 @@ export const GalleryImageInfo = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 0.3rem;
+
+  @media (max-width: ${BREAKPOINT}px) {
+    gap: 0.2rem;
+  }
 `;
 
 export const GalleryImageTitle = styled.p`
+  width: 100%;
   font-size: 1.6rem;
   font-weight: 600;
   color: #333;
@@ -85,10 +90,20 @@ export const GalleryImageTitle = styled.p`
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  word-break: break-all;
+
+  @media (max-width: ${BREAKPOINT}px) {
+    font-size: 1.4rem;
+  }
 `;
 
 export const GalleryImageDate = styled.p`
+  width: 100%;
   font-size: 1.4rem;
   font-weight: 600;
   color: #aaa;
+
+  @media (max-width: ${BREAKPOINT}px) {
+    font-size: 1.3rem;
+  }
 `;

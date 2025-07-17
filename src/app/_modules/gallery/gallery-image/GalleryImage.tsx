@@ -2,8 +2,17 @@ import React from 'react';
 import * as S from './styled';
 import IconButton from '@/app/_modules/common/components/button/icon-button/IconButton';
 import { getImageUrl } from 'utils/supabase/storage';
+import DateUtil from '@/app/_modules/common/utils/dateUtil';
 
-const GalleryImage = ({ image, priority = false }: { image: string; priority?: boolean }) => {
+const GalleryImage = ({
+  imageName,
+  imageUpdatedAt,
+  priority = false,
+}: {
+  imageName: string;
+  imageUpdatedAt: string;
+  priority?: boolean;
+}) => {
   return (
     <S.GalleryImageContainer>
       <S.GalleryImageContainerOverlay className='overlay'>
@@ -12,7 +21,7 @@ const GalleryImage = ({ image, priority = false }: { image: string; priority?: b
       <S.GalleryImageTape src='/assets/images/tape.png' alt='tape' />
       <S.GalleryImageWrap>
         <S.GalleryImage
-          src={getImageUrl(image)}
+          src={getImageUrl(imageName)}
           alt='gallery'
           fill
           priority={priority}
@@ -20,8 +29,8 @@ const GalleryImage = ({ image, priority = false }: { image: string; priority?: b
         />
       </S.GalleryImageWrap>
       <S.GalleryImageInfo>
-        <S.GalleryImageTitle>강아지 사진</S.GalleryImageTitle>
-        <S.GalleryImageDate>2025-01-01</S.GalleryImageDate>
+        <S.GalleryImageTitle>{imageName}</S.GalleryImageTitle>
+        <S.GalleryImageDate>{DateUtil.format(imageUpdatedAt)}</S.GalleryImageDate>
       </S.GalleryImageInfo>
     </S.GalleryImageContainer>
   );

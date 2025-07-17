@@ -28,11 +28,16 @@ const GalleryImageList = ({ searchInput }: { searchInput: string }) => {
       <S.GalleryImageList>
         {filteredImages &&
           filteredImages.map((image: FileObject) => (
-            <GalleryImage key={image.id} image={image.name} priority />
+            <GalleryImage
+              key={image.id}
+              imageName={image.name}
+              imageUpdatedAt={image.updated_at}
+              priority
+            />
           ))}
       </S.GalleryImageList>
       {filteredImages && filteredImages.length === 0 && (
-        <S.GalleryImageListEmpty>검색 결과가 없습니다.</S.GalleryImageListEmpty>
+        <S.GalleryImageListEmpty>이미지가 없습니다. 🙁</S.GalleryImageListEmpty>
       )}
     </S.GalleryImageListContainer>
   );

@@ -19,7 +19,7 @@ const GalleryContainer = () => {
   return (
     <AppLayout bgColor='linear-gradient(45deg, linen, transparent)'>
       <S.GalleryContainer>
-        <S.GalleryTitle>갤러리 🖼️</S.GalleryTitle>
+        <S.GalleryTitle>갤러리 📸</S.GalleryTitle>
         <S.GalleryContent>
           <Input
             id='todo-search'
