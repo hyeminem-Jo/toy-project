@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useCallback, useState } from 'react';
 import * as S from './styled';
 import Button from '@/app/_modules/common/components/button/button/Button';
 import { queryClient } from '@/app/config/ReactQueryProvider';
+import { useDropzone } from 'react-dropzone';
 
 const AddFileZone = () => {
-  const fileRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
   // 파일명이 영문, 숫자, -, _ 로만 이루어져 있다면 원본 파일명 유지, 아닐 경우 변환 후 타임스탬프 추가
   const toSafeFileName = (name: string) => {
@@ -32,29 +33,41 @@ const AddFileZone = () => {
     return result.data;
   };
 
+  const onDrop = useCallback(async (acceptedFiles: File[]) => {
+    if (isUploading) return;
+    const file = acceptedFiles[0];
+    if (file) {
+      const formData = new FormData();
+      // 파일명 변환
+      const safeName = toSafeFileName(file.name);
+      const safeFile = new File([file], safeName, { type: file.type });
+      formData.append('file', safeFile);
+      try {
+        setIsUploading(true);
+        const result = await handleUpload(formData);
+        queryClient.invalidateQueries({ queryKey: ['images'] });
+        console.log(result);
+      } catch (err) {
+        alert((err as Error).message);
+      } finally {
+        setIsUploading(false);
+      }
+    }
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
   return (
-    <S.AddFileZone
-      onSubmit={async (e) => {
-        e.preventDefault();
-        const file = fileRef.current?.files?.[0];
-        if (file) {
-          const formData = new FormData();
-          // 파일명 변환
-          const safeName = toSafeFileName(file.name);
-          const safeFile = new File([file], safeName, { type: file.type });
-          formData.append('file', safeFile);
-          try {
-            const result = await handleUpload(formData);
-            queryClient.invalidateQueries({ queryKey: ['images'] });
-            console.log(result);
-          } catch (err) {
-            alert((err as Error).message);
-          }
-        }
-      }}
-    >
-      <input type='file' ref={fileRef} />
-      <Button type='submit' text='파일 업로드' iconName='plus' filled />
+    <S.AddFileZone {...getRootProps()} $disabled={isUploading}>
+      <input {...getInputProps()} />
+      <S.AddFileZoneInner>
+        <Button type='button' text='파일 업로드' iconName='plus' filled loading={isUploading} />
+        <S.AddFileZoneInnerText $isDragActive={isDragActive}>
+          {isDragActive
+            ? '그래 여기다 놔!!!⭐️'
+            : '파일을 여기에다 드래그 하거나 클릭하여 업로드해주세요.'}
+        </S.AddFileZoneInnerText>
+      </S.AddFileZoneInner>
     </S.AddFileZone>
   );
 };

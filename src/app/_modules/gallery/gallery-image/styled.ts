@@ -24,8 +24,8 @@ export const GalleryImageContainer = styled.li`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
-  border-radius: 0.8rem;
+  padding: 1.2rem;
+  /* border-radius: 0.8rem; */
   background-color: #fff;
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.1);
   aspect-ratio: 1 / 1.2;
@@ -36,6 +36,10 @@ export const GalleryImageContainer = styled.li`
       opacity: 1;
       visibility: visible;
     }
+  }
+
+  @media (max-width: ${BREAKPOINT}px) {
+    padding: 0.8rem;
   }
 `;
 
@@ -66,7 +70,7 @@ export const GalleryImageWrap = styled.div`
 
 export const GalleryImage = styled(Image)`
   object-fit: cover;
-  border-radius: 0.5rem;
+  /* border-radius: 0.5rem; */
 `;
 
 export const GalleryImageInfo = styled.div`

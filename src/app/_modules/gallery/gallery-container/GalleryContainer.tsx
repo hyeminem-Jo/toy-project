@@ -17,7 +17,8 @@ const GalleryContainer = () => {
   // 이미지 선택 후 일괄 삭제 기능
 
   return (
-    <AppLayout bgColor='linear-gradient(45deg, linen, transparent)'>
+    <AppLayout isGallery>
+      {/* <AppLayout bgColor='linear-gradient(45deg, linen, transparent)'> */}
       <S.GalleryContainer>
         <S.GalleryTitle>갤러리 📸</S.GalleryTitle>
         <S.GalleryContent>
