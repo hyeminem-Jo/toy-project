@@ -30,7 +30,9 @@ export async function searchFiles(search: string = '') {
   // 모든 파일을 가져옴
   const { data, error } = await supabase.storage
     .from(process.env.NEXT_PUBLIC_STORAGE_BUCKET)
-    .list(null);
+    .list(null, {
+      sortBy: { column: 'created_at', order: 'desc' }, // 최신순 정렬
+    });
 
   if (error) handleError(error);
 
@@ -47,14 +49,7 @@ export async function searchFiles(search: string = '') {
       });
     }
 
-    // 최신순으로 정렬 (created_at 기준 내림차순)
-    const sortedData = filteredData.sort((a: FileObject, b: FileObject) => {
-      const dateA = new Date(a.created_at).getTime();
-      const dateB = new Date(b.created_at).getTime();
-      return dateB - dateA; // 내림차순 (최신이 먼저)
-    });
-
-    return sortedData;
+    return filteredData;
   }
 
   return data;
