@@ -11,10 +11,10 @@ const GalleryContainer = () => {
   const [searchInput, setSearchInput] = useState('');
 
   // TODO:
-  // 이미지 상세(확대)보기,
-  // 상세보기 내에서 슬라이드 기능으로 보기,
-  // 이미지 다운로드 기능,
-  // 이미지 선택 후 일괄 삭제 기능
+  // 1. 이미지 상세(확대)보기
+  // 2. 상세보기 내에서 슬라이드 기능으로 보기
+  // 3. 이미지 다운로드 기능
+  // 4. 이미지 선택 후 일괄 삭제 기능
 
   return (
     <AppLayout isGallery>
