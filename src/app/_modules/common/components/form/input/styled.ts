@@ -12,10 +12,11 @@ type StyleProps = {
   $isUnderline?: boolean;
   $isReadonly?: boolean;
   $isLineThrough?: boolean;
+  $color?: 'white' | 'black';
 };
 
-export const InputFieldset = styled.div`
-  width: 100%;
+export const InputFieldset = styled.div<StyleProps>`
+  width: ${({ $width }) => ($width ? `${$width}px` : '100%')};
 `;
 
 export const Input = styled.input<StyleProps>`
@@ -27,12 +28,15 @@ export const Input = styled.input<StyleProps>`
   overflow: hidden;
   text-overflow: ellipsis;
   letter-spacing: -0.18px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid ${({ $color }) => ($color === 'white' ? '#e0e0e0' : '#222')};
+  background-color: ${({ $color }) => ($color === 'white' ? '#fff' : '#333')};
   border-radius: 0.8rem;
   padding: 1.3rem 1.6rem;
   padding-right: 5rem;
+  color: ${({ $color }) => ($color === 'white' ? '#000' : '#fff')};
+
   &:focus {
-    border-color: #222;
+    border-color: ${({ $color }) => ($color === 'white' ? '#222' : '#fff')};
   }
   ${({ $isReadonly }) =>
     $isReadonly &&
@@ -58,10 +62,10 @@ export const Input = styled.input<StyleProps>`
 
 export const InputWrap = styled.div<StyleProps>`
   position: relative;
-  width: ${({ $width }) => ($width ? `${$width}px` : '100%')};
+  width: 100%;
 `;
 
-export const InputSearchButton = styled.button`
+export const InputSearch = styled.div<StyleProps>`
   position: absolute;
   right: 0;
   top: 50%;
@@ -69,9 +73,13 @@ export const InputSearchButton = styled.button`
   color: #666;
   padding: 0 1.6rem;
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   i::before {
     font-size: 1.8rem;
+    color: ${({ $color }) => ($color === 'white' ? '#666' : '#fff')};
   }
 `;
 

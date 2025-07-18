@@ -22,6 +22,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   isLineThrough?: boolean;
   ref?: React.RefObject<HTMLInputElement>;
+  color?: 'white' | 'black';
 }
 
 function Input({
@@ -41,14 +42,15 @@ function Input({
   id,
   name,
   isLineThrough = false,
+  color = 'white',
   ref,
   ...rest
 }: InputProps) {
   const [isFocus, setIsFocus] = useState(false);
   const isMobile = useIsMobile();
   return (
-    <S.InputFieldset>
-      <S.InputWrap $width={width}>
+    <S.InputFieldset $width={width}>
+      <S.InputWrap>
         <S.Input
           id={id || name}
           name={name}
@@ -70,13 +72,14 @@ function Input({
           placeholder={placeholder}
           disabled={disabled || isReadonly}
           $isLineThrough={isLineThrough && isReadonly}
+          $color={color}
           ref={ref}
           {...rest}
         />
         {isSearch && (
-          <S.InputSearchButton>
+          <S.InputSearch $color={color}>
             <i className='fa-solid fa-magnifying-glass'></i>
-          </S.InputSearchButton>
+          </S.InputSearch>
         )}
       </S.InputWrap>
     </S.InputFieldset>

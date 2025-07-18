@@ -1,7 +1,14 @@
-import React from 'react';
+'use client';
+
+import * as S from './styled';
+import MovieList from '../movie-list/MovieList';
 
 const MovieConainer = () => {
-  return <div>영화</div>;
+  return (
+    <S.MovieContainer>
+      <MovieList />
+    </S.MovieContainer>
+  );
 };
 
 export default MovieConainer;

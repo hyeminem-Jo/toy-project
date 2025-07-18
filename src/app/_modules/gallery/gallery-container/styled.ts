@@ -1,7 +1,13 @@
 import styled from '@emotion/styled';
 import { BREAKPOINT } from '@/app/_modules/common/constant/breakpoint';
 
-export const GalleryContainer = styled.div``;
+export const GalleryContainer = styled.div`
+  padding-top: 6rem;
+
+  @media (max-width: ${BREAKPOINT}px) {
+    padding-top: 4rem;
+  }
+`;
 
 export const GalleryContent = styled.div`
   margin-top: 2rem;

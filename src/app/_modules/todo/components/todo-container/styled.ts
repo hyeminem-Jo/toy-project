@@ -4,6 +4,13 @@ import { BREAKPOINT } from '@/app/_modules/common/constant/breakpoint';
 export const TodoContainer = styled.div`
   max-width: 1000px;
   margin: 0 auto;
+  padding-top: 6rem;
+  padding-bottom: 10rem;
+
+  @media (max-width: ${BREAKPOINT}px) {
+    padding-top: 4rem;
+    padding-bottom: 8rem;
+  }
 `;
 
 export const TodoContent = styled.div`

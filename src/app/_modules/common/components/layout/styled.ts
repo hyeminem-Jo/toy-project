@@ -11,7 +11,6 @@ export const AppLayout = styled.div<AppLayoutProps>`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  padding-top: 6rem;
   background: ${({ $bgColor }) => $bgColor};
 
   ${({ $isGallery }) =>
@@ -27,10 +26,6 @@ export const AppLayout = styled.div<AppLayoutProps>`
         background-size: 250% auto;
       }
     `}
-
-  @media (max-width: ${BREAKPOINT}px) {
-    padding-top: 4rem;
-  }
 `;
 
 export const AppLayoutContent = styled.div`
