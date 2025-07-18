@@ -23,7 +23,7 @@ const CustomDatePicker = ({
         minDate={new Date()}
         selected={selectedDate}
         onChange={(date: Date | null) => setSelectedDate(date)}
-        placeholderText='날짜 선택'
+        placeholderText='기한 없음'
         disabled={disabled}
       />
     </S.DatePickerWrapper>

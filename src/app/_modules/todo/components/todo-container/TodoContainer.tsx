@@ -13,7 +13,7 @@ import TodoItem from '../todo-item/TodoItem';
 import Loading from '@/app/_modules/common/components/loading/Loading';
 
 const TodoContainer = () => {
-  const [searchInput, setSearchInput] = useState('');
+  const [searchInput, setSearchInput] = useState<string>('');
   const [newlyCreatedTodoId, setNewlyCreatedTodoId] = useState<number | null>(null);
 
   const todosQuery = useQuery({

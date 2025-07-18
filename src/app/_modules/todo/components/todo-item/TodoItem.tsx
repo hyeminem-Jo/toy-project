@@ -36,7 +36,7 @@ const TodoItem = ({
         id: todo.id,
         title: todoTitle,
         completed: isCompleted,
-        endDate: selectedDate ?? null,
+        endDate: selectedDate ? selectedDate.toLocaleDateString('sv-SE') : null,
       }),
     onSuccess: () => {
       setIsEdit(false);
