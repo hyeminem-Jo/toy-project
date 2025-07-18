@@ -37,11 +37,11 @@ const GalleryImage = ({
           onClick={() => deleteImageMutation.mutate(imageName)}
         />
       </S.GalleryImageContainerOverlay>
-      <S.GalleryImageTape src='/assets/images/tape.png' alt='tape' />
+      <S.GalleryImageTape src='/assets/images/tape.png' alt='tape' aria-hidden='true' />
       <S.GalleryImageWrap>
         <S.GalleryImage
           src={getImageUrl(imageName)}
-          alt='gallery'
+          alt='갤러리 이미지'
           fill
           priority={priority}
           sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'

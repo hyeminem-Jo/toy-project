@@ -47,7 +47,7 @@ export const GalleryImageTape = styled.img`
   position: absolute;
   top: 1rem;
   right: -3rem;
-  width: 10rem;
+  width: 12rem;
   height: auto;
   transform: rotate(45deg);
   opacity: 0.6;
@@ -57,7 +57,7 @@ export const GalleryImageTape = styled.img`
   @media (max-width: ${BREAKPOINT}px) {
     top: 1rem;
     right: -2rem;
-    width: 8rem;
+    width: 9rem;
   }
 `;
 

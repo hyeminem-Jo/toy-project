@@ -35,13 +35,16 @@ const AddFileZone = () => {
 
   const onDrop = useCallback(async (acceptedFiles: File[]) => {
     if (isUploading) return;
-    const file = acceptedFiles[0];
-    if (file) {
+
+    if (acceptedFiles.length > 0) {
       const formData = new FormData();
-      // 파일명 변환
-      const safeName = toSafeFileName(file.name);
-      const safeFile = new File([file], safeName, { type: file.type });
-      formData.append('file', safeFile);
+
+      acceptedFiles.forEach((file) => {
+        const safeName = toSafeFileName(file.name);
+        const safeFile = new File([file], safeName, { type: file.type });
+        formData.append('file', safeFile);
+      });
+
       try {
         setIsUploading(true);
         const result = await handleUpload(formData);
@@ -63,9 +66,7 @@ const AddFileZone = () => {
       <S.AddFileZoneInner>
         <Button type='button' text='파일 업로드' iconName='plus' filled loading={isUploading} />
         <S.AddFileZoneInnerText $isDragActive={isDragActive}>
-          {isDragActive
-            ? '그래 여기다 놔!!!⭐️'
-            : '파일을 여기에다 드래그 하거나 클릭하여 업로드해주세요.'}
+          {isDragActive ? '그래 여기다 놔!!!⭐️' : '파일을 드래그 하거나 클릭하여 업로드해주세요.'}
         </S.AddFileZoneInnerText>
       </S.AddFileZoneInner>
     </S.AddFileZone>
