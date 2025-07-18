@@ -8,20 +8,49 @@ export type Database = {
   };
   public: {
     Tables: {
+      movie: {
+        Row: {
+          id: number;
+          image_url: string;
+          overview: string;
+          popularity: number;
+          release_date: string;
+          title: string;
+          vote_average: number;
+        };
+        Insert: {
+          id?: number;
+          image_url: string;
+          overview: string;
+          popularity: number;
+          release_date: string;
+          title: string;
+          vote_average: number;
+        };
+        Update: {
+          id?: number;
+          image_url?: string;
+          overview?: string;
+          popularity?: number;
+          release_date?: string;
+          title?: string;
+          vote_average?: number;
+        };
+        Relationships: [];
+      };
       todo: {
         Row: {
           completed: boolean;
           created_at: string;
-          endDate: Date | null;
+          endDate: string | null;
           id: number;
           title: string;
           updated_at: string | null;
         };
         Insert: {
-          // DB 에 값을 넣을 때 필수/옵셔널 한 타입 정의
           completed: boolean;
           created_at?: string;
-          endDate?: Date | null;
+          endDate?: string | null;
           id?: number;
           title: string;
           updated_at?: string | null;
@@ -29,7 +58,7 @@ export type Database = {
         Update: {
           completed?: boolean;
           created_at?: string;
-          endDate?: Date | null;
+          endDate?: string | null;
           id?: number;
           title?: string;
           updated_at?: string | null;
