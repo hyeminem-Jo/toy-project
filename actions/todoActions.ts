@@ -2,15 +2,11 @@
 
 import { createServerSupabaseClient } from 'utils/supabase/server';
 import { Database } from 'types_db';
+import { handleError } from './errorUtils';
 
 export type TodoRow = Database['public']['Tables']['todo']['Row'];
 export type TodoRowInsert = Database['public']['Tables']['todo']['Insert'];
 export type TodoRowUpdate = Database['public']['Tables']['todo']['Update'];
-
-const handleError = (error: Error) => {
-  console.error(error);
-  throw new Error(error.message || 'An error occurred');
-};
 
 export async function getTodos({ searchInput = '' }): Promise<TodoRow[]> {
   const supabase = await createServerSupabaseClient();

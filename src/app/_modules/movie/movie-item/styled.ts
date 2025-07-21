@@ -65,4 +65,5 @@ export const MovieTitle = styled.strong`
   font-size: 1.8rem;
   font-weight: 600;
   line-height: 1.5;
+  text-align: center;
 `;

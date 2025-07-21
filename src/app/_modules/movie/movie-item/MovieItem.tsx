@@ -3,14 +3,17 @@
 import * as S from './styled';
 import Button from '@/app/_modules/common/components/button/button/Button';
 import { useRouter } from 'next/navigation';
+import { Database } from 'types_db';
 
-const MovieItem = () => {
+export type MovieRow = Database['public']['Tables']['movie']['Row'];
+
+const MovieItem = ({ movie }: { movie: MovieRow }) => {
   const router = useRouter();
   return (
     <S.MovieItemContainer>
       <S.MovieImageWrap>
         <S.MovieImage
-          src='https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg'
+          src={movie.image_url}
           alt='영화 이미지'
           fill
           priority
@@ -18,17 +21,13 @@ const MovieItem = () => {
         />
       </S.MovieImageWrap>
       <S.MovieDim className='movie-dim'>
-        <S.MovieTitle>영화 제목</S.MovieTitle>
-        <S.MovieDesc>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit iste vero assumenda eos
-          id veritatis temporibus alias numquam, deleniti autem debitis corrupti deserunt illo
-          labore harum nemo itaque, quia in.
-        </S.MovieDesc>
+        <S.MovieTitle>{movie.title}</S.MovieTitle>
+        <S.MovieDesc>{movie.overview}</S.MovieDesc>
         <Button
           text='자세히 보기'
           filled
           onClick={() => {
-            router.push('/');
+            router.push(`/movie/${movie.id}`);
           }}
         />
       </S.MovieDim>

@@ -7,7 +7,6 @@ export const MovieDetailContainer = styled.div`
   min-height: calc(100vh - 12rem);
   padding-top: 13rem;
   padding-bottom: 10rem;
-  border: 1px solid gold;
   color: #fff;
 
   @media (max-width: ${BREAKPOINT}px) {
@@ -33,7 +32,6 @@ export const MovieDetailImageWrap = styled.div`
   position: relative;
   aspect-ratio: 1 / 1.5;
   overflow: hidden;
-  border: 2px solid red;
 
   @media (max-width: ${BREAKPOINT}px) {
     width: 100%;
@@ -48,7 +46,6 @@ export const MovieDetailImage = styled(Image)`
 
 export const MovieDetailInfo = styled.div`
   flex: 1.8;
-  border: 1px solid blue;
 `;
 
 export const MovieDetailTitle = styled.h1`
@@ -84,8 +81,12 @@ export const MovieDetailBottom = styled.div`
   margin-top: 3rem;
   display: flex;
   flex-direction: column;
-  gap: 0.3rem;
-  font-weight: 500;
+  gap: 1.8rem;
+  font-weight: 600;
+
+  @media (max-width: ${BREAKPOINT}px) {
+    gap: 1.5rem;
+  }
 `;
 
 export const MovieDetailAverage = styled.p`

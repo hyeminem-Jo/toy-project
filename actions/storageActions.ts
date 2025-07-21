@@ -2,13 +2,7 @@
 
 import { createServerSupabaseClient } from 'utils/supabase/server';
 import { FileObject } from '@/app/types/commonType';
-
-function handleError(error: Error) {
-  if (error) {
-    console.error(error);
-    throw error;
-  }
-}
+import { handleError } from './errorUtils';
 
 // export async function uploadFile(formData: FormData) {
 //   const supabase = await createServerSupabaseClient();

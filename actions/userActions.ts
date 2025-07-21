@@ -1,5 +1,7 @@
 'use server';
 
+import { handleError } from './errorUtils';
+
 export async function searchUsers(name: string) {
   const DB = [
     {
