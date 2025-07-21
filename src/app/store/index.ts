@@ -5,15 +5,9 @@ interface User {
   email: string;
 }
 
-interface MovieSearch {
-  searchInput: string;
-}
-
 export const userState = atom<User>({
   name: '',
   email: '',
 });
 
-export const movieSearchState = atom<MovieSearch>({
-  searchInput: '',
-});
+export const movieSearchState = atom<string>('');

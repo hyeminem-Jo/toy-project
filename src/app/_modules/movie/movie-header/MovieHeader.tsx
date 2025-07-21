@@ -24,8 +24,8 @@ const MovieHeader = () => {
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setMovieSearch({ searchInput });
-    }, 300); // 300ms 디바운스
+      setMovieSearch(searchInput);
+    }, 300);
     return () => {
       clearTimeout(handler);
     };
