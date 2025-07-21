@@ -9,8 +9,9 @@ export const metadata = {
   description: '영화 상세 페이지 입니다.',
 };
 
-const MovieDetailPage = async ({ params }: { params: { id: string } }) => {
-  const movie = await getMovie(Number(params.id));
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  const movie = await getMovie(Number(id));
   console.log('movie', movie);
 
   return (
@@ -18,6 +19,4 @@ const MovieDetailPage = async ({ params }: { params: { id: string } }) => {
       {movie ? <MovieDetailConainer movie={movie} /> : <div>영화를 찾을 수 없습니다.</div>}
     </AppLayout>
   );
-};
-
-export default MovieDetailPage;
+}
