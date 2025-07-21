@@ -34,7 +34,13 @@ const MovieHeader = () => {
   return (
     <S.MovieHeader>
       <S.MovieLogo href='/movie'>
-        <Image src='/assets/images/netflix-logo.svg' alt='netflix-logo' width={130} height={100} />
+        <Image
+          src='/assets/images/netflix-logo.svg'
+          alt='netflix-logo'
+          width={130}
+          height={100}
+          priority
+        />
         <S.MovieLogoText>|&nbsp;&nbsp;&nbsp;Clone Project</S.MovieLogoText>
       </S.MovieLogo>
       {isMobile && (
