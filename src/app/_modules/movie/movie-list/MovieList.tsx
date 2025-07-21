@@ -16,7 +16,7 @@ const MovieList = () => {
   const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery({
     initialPageParam: 1,
     queryKey: ['movie', movieSearch],
-    queryFn: ({ pageParam }) => searchMovies(movieSearch, pageParam, 6),
+    queryFn: ({ pageParam }) => searchMovies(movieSearch, pageParam, 12),
     getNextPageParam: (lastPage) => {
       // movieActions 에서 error 발생 시 페이지 번호를 null로 설정하면 lastPage.page 가 null 그 이후로 더 이상 페이지 번호를 증가시키지 않음
       // (hasNextPage 가 계속 true 로 유지되어 무한 스크롤 발생 이슈 해결)
