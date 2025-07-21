@@ -33,7 +33,7 @@ const MovieList = () => {
     if (inView && hasNextPage && !isFetchingNextPage && !isFetching) {
       fetchNextPage();
     }
-  }, [inView, hasNextPage, fetchNextPage, isFetchingNextPage, isFetching]);
+  }, [inView, hasNextPage, fetchNextPage]);
 
   return (
     <S.MovieListContainer>
