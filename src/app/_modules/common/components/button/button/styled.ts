@@ -20,6 +20,13 @@ export const Button = styled.button<ButtonProps>`
   border-radius: 0.8rem;
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  transition: all 0.15s ease-in-out;
+
+  &:hover {
+    background-color: ${({ $filled }) => $filled && '#fff'};
+    color: ${({ $filled }) => $filled && '#222'};
+    border-color: ${({ $filled }) => $filled && '#222'};
+  }
 
   i {
     color: ${({ $filled }) => $filled && '#fff !important'};

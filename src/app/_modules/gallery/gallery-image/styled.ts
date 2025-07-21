@@ -25,7 +25,6 @@ export const GalleryImageContainer = styled.li`
   flex-direction: column;
   gap: 1rem;
   padding: 1.2rem;
-  /* border-radius: 0.8rem; */
   background-color: #fff;
   box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.1);
   aspect-ratio: 1 / 1.2;

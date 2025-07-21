@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import { BREAKPOINT } from '@/app/_modules/common/constant/breakpoint';
+import Link from 'next/link';
 
 export const MovieHeader = styled.div`
   position: fixed;
@@ -12,9 +14,26 @@ export const MovieHeader = styled.div`
   width: 100%;
   height: 10rem;
   padding: 0 5rem;
+
+  @media (max-width: ${BREAKPOINT}px) {
+    height: 8rem;
+    padding: 0 2rem;
+  }
 `;
 
-export const MovieLogo = styled.div`
+export const MovieHeaderInputWrap = styled.div`
+  position: static;
+  @media (max-width: ${BREAKPOINT}px) {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 5rem;
+    padding: 0 2rem;
+  }
+`;
+
+export const MovieLogo = styled(Link)`
   display: flex;
   align-items: center;
   gap: 1rem;

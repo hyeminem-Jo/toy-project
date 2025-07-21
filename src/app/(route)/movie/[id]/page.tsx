@@ -1,20 +1,19 @@
-import { Metadata } from 'next';
 import AppLayout from '@/app/_modules/common/components/layout/AppLayout';
-import MovieContainer from '@/app/_modules/movie/movie-container/MovieConainer';
+import MovieDetailConainer from '@/app/_modules/movie/movie-detail-container/MovieDetailConainer';
 import MovieHeader from '@/app/_modules/movie/movie-header/MovieHeader';
 import MovieFooter from '@/app/_modules/movie/movie-footer/MovieFooter';
 
-export const metadata: Metadata = {
-  title: "Hyejin's Toy Project | 영화 🎥",
-  description: '영화 목록을 확인해보세요 🎥',
+export const metadata = {
+  title: '영화 상세 페이지',
+  description: '영화 상세 페이지 입니다.',
 };
 
-const MoviePage = () => {
+const MovieDetailPage = () => {
   return (
     <AppLayout bgColor='#222' header={<MovieHeader />} footer={<MovieFooter />}>
-      <MovieContainer />
+      <MovieDetailConainer />
     </AppLayout>
   );
 };
 
-export default MoviePage;
+export default MovieDetailPage;
