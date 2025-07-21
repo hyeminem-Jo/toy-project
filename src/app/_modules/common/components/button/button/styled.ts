@@ -26,6 +26,9 @@ export const Button = styled.button<ButtonProps>`
     background-color: ${({ $filled }) => $filled && '#fff'};
     color: ${({ $filled }) => $filled && '#222'};
     border-color: ${({ $filled }) => $filled && '#222'};
+    i::before {
+      color: ${({ $filled }) => $filled && '#222'};
+    }
   }
 
   i {
