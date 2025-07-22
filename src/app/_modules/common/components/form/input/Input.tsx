@@ -3,6 +3,7 @@
 import * as S from './styled';
 import { useState } from 'react';
 import { useIsMobile } from '@/app/_modules/common/hooks/useIsMobile';
+import { Ref } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
@@ -10,7 +11,6 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   required?: boolean;
   maxLength?: number;
-  isLengthCount?: boolean;
   type?: 'text' | 'password';
   width?: number;
   isSearch?: boolean;
@@ -21,14 +21,14 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   isLineThrough?: boolean;
-  ref?: React.RefObject<HTMLInputElement>;
+  inputRef?: Ref<HTMLInputElement>;
   color?: 'white' | 'black';
+  error?: string;
 }
 
 function Input({
   type = 'text',
   maxLength = 50,
-  isLengthCount = true,
   placeholder = '',
   onChange,
   onBlur,
@@ -43,7 +43,10 @@ function Input({
   name,
   isLineThrough = false,
   color = 'white',
-  ref,
+  inputRef,
+  label,
+  required,
+  error,
   ...rest
 }: InputProps) {
   const [isFocus, setIsFocus] = useState(false);
@@ -51,12 +54,18 @@ function Input({
   return (
     <S.InputFieldset $width={width}>
       <S.InputWrap>
+        {/* {label && (
+          <label htmlFor={id || name}>
+            {label}
+            {required && ' *'}
+          </label>
+        )} */}
         <S.Input
           id={id || name}
           name={name}
           type={type}
           value={value}
-          maxLength={isLengthCount ? maxLength : undefined}
+          maxLength={maxLength || undefined}
           $isFocus={isFocus}
           $isReadonly={isReadonly}
           $isUnderline={isUnderline}
@@ -73,7 +82,7 @@ function Input({
           disabled={disabled || isReadonly}
           $isLineThrough={isLineThrough && isReadonly}
           $color={color}
-          ref={ref}
+          ref={inputRef}
           {...rest}
         />
         {isSearch && (
@@ -82,6 +91,7 @@ function Input({
           </S.InputSearch>
         )}
       </S.InputWrap>
+      {error && <S.InputError>{error}</S.InputError>}
     </S.InputFieldset>
   );
 }

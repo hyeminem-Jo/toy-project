@@ -104,8 +104,9 @@ export const InputLength = styled.span<StyleProps>`
 
 export const DeleteInputBtn = styled.button``;
 
-export const ErrorMessage = styled.p`
+export const InputError = styled.p`
   display: block;
   margin-top: 0.6rem;
   text-align: left;
+  color: #ff0000;
 `;

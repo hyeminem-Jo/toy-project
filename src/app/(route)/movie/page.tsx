@@ -5,7 +5,7 @@ import MovieHeader from '@/app/_modules/movie/movie-header/MovieHeader';
 import MovieFooter from '@/app/_modules/movie/movie-footer/MovieFooter';
 
 export const metadata: Metadata = {
-  title: "Hyejin's Toy Project | 영화 🎥",
+  title: "Hyejin's Project | 영화 🎥",
   description: '영화 목록을 확인해보세요 🎥',
 };
 

@@ -3,8 +3,6 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import EmotionRegistry from './_modules/common/styles/EmotionRegistry';
 import { Provider } from 'jotai';
 import { ReactQueryProvider } from './config/ReactQueryProvider';
-// import { Global } from '@emotion/react';
-// import { globalStyles } from './_modules/common/styles/globalStyle';
 import './_modules/common/styles/reset.css';
 import './_modules/common/styles/globals.css';
 import './_modules/common/styles/font.css';
@@ -43,10 +41,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <ReactQueryProvider>
           <Provider>
-            <EmotionRegistry>
-              {/* <Global styles={globalStyles} /> */}
-              {children}
-            </EmotionRegistry>
+            <EmotionRegistry>{children}</EmotionRegistry>
           </Provider>
         </ReactQueryProvider>
       </body>
