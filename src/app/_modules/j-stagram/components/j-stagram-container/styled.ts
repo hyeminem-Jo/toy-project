@@ -1,9 +1,15 @@
 import styled from '@emotion/styled';
+import { BREAKPOINT_SM } from '@/app/_modules/common/constant/breakpoint';
 
 export const JStagramContainer = styled.div`
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
+  width: 100%;
+  min-height: 100dvh;
+  padding-left: 9rem;
+
+  @media (max-width: ${BREAKPOINT_SM}px) {
+    padding-left: 0;
+    padding-bottom: 6rem;
+  }
 `;
 
 export const JStagramContent = styled.div`

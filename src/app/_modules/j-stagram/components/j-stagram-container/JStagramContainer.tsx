@@ -2,13 +2,13 @@
 
 import React from 'react';
 import * as S from './styled';
+import SideBar from '../side-bar/SideBar';
 
-const JStagramContainer = () => {
+const JStagramContainer = ({ children }: { children: React.ReactNode }) => {
   return (
     <S.JStagramContainer>
-      <S.JStagramContent>
-        <h1>JStagram</h1>
-      </S.JStagramContent>
+      <SideBar />
+      <S.JStagramContent>{children}</S.JStagramContent>
     </S.JStagramContainer>
   );
 };
