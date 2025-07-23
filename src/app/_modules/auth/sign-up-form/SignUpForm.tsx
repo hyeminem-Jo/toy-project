@@ -6,22 +6,33 @@ import Button from '@/app/_modules/common/components/button/button/Button';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { createBrowserSupabaseClient } from 'utils/supabase/client';
+import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
 
-const SignUpForm = ({ setView }: { setView: (view: 'SIGN_IN' | 'SIGN_UP') => void }) => {
-  const schema = z
-    .object({
-      email: z.string().min(1, '이메일을 입력해주세요.').email('이메일 형식이 올바르지 않습니다.'),
-      password: z.string().min(1, '비밀번호를 입력해주세요.'),
-      passwordConfirm: z.string().min(1, '비밀번호를 다시 입력해주세요.'),
-    })
-    .refine((data) => data.password === data.passwordConfirm, {
-      path: ['passwordConfirm'],
-      message: '비밀번호가 일치하지 않습니다',
-    });
+const schema = z
+  .object({
+    email: z.string().min(1, '이메일을 입력해주세요.').email('이메일 형식이 올바르지 않습니다.'),
+    password: z.string().min(1, '비밀번호를 입력해주세요.'),
+    passwordConfirm: z.string().min(1, '비밀번호를 다시 입력해주세요.'),
+  })
+  .refine((data) => data.password === data.passwordConfirm, {
+    path: ['passwordConfirm'],
+    message: '비밀번호가 일치하지 않습니다',
+  });
+
+interface SignUpFormProps {
+  setView: (view: 'SIGN_IN' | 'SIGN_UP') => void;
+}
+
+const SignUpForm = ({ setView }: SignUpFormProps) => {
+  const supabase = createBrowserSupabaseClient();
+  const [confirmationRequired, setConfirmationRequired] = useState(false);
 
   const {
     control,
     handleSubmit,
+    // watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -33,8 +44,35 @@ const SignUpForm = ({ setView }: { setView: (view: 'SIGN_IN' | 'SIGN_UP') => voi
     mode: 'onChange',
   });
 
-  const onSubmit = (data: z.infer<typeof schema>) => {
-    console.log(data);
+  // const watchEmail = watch('email');
+  // const watchPassword = watch('password');
+
+  const signUpMutation = useMutation({
+    mutationFn: async (formData: z.infer<typeof schema>) => {
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          emailRedirectTo: `${window.location.origin}/api/signup/confirm`,
+          // window.location.origin - http://localhost:3000
+        },
+      });
+
+      if (data) {
+        setConfirmationRequired(true);
+      }
+
+      if (error) {
+        alert(error.message);
+        throw new Error(error.message);
+      }
+
+      return data;
+    },
+  });
+
+  const onSubmit = (formData: z.infer<typeof schema>) => {
+    signUpMutation.mutate(formData);
   };
 
   return (
@@ -92,9 +130,11 @@ const SignUpForm = ({ setView }: { setView: (view: 'SIGN_IN' | 'SIGN_UP') => voi
       />
       <Button
         type='submit'
-        text='가입하기'
+        text={confirmationRequired ? '메일함을 확인해주세요.' : '가입하기'}
         filled
         widthFull
+        loading={signUpMutation.isPending}
+        disabled={confirmationRequired}
         // onClick={() => router.push('/')}
       />
     </S.SignUpFormWrap>

@@ -6,16 +6,25 @@ import Button from '@/app/_modules/common/components/button/button/Button';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { createBrowserSupabaseClient } from 'utils/supabase/client';
+import { useMutation } from '@tanstack/react-query';
 
-const SignInForm = ({ setView }: { setView: (view: 'SIGN_IN' | 'SIGN_UP') => void }) => {
-  const schema = z.object({
-    email: z.string().min(1, '이메일을 입력해주세요.').email('이메일 형식이 올바르지 않습니다.'),
-    password: z.string().min(1, '비밀번호를 입력해주세요.'),
-  });
+const schema = z.object({
+  email: z.string().min(1, '이메일을 입력해주세요.').email('이메일 형식이 올바르지 않습니다.'),
+  password: z.string().min(1, '비밀번호를 입력해주세요.'),
+});
+
+interface SignInFormProps {
+  setView: (view: 'SIGN_IN' | 'SIGN_UP') => void;
+}
+
+const SignInForm = ({ setView }: SignInFormProps) => {
+  const supabase = createBrowserSupabaseClient();
 
   const {
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -25,6 +34,29 @@ const SignInForm = ({ setView }: { setView: (view: 'SIGN_IN' | 'SIGN_UP') => voi
     },
     mode: 'onChange',
   });
+
+  // const watchEmail = watch('email');
+  // const watchPassword = watch('password');
+
+  // console.log(watchEmail, watchPassword);
+
+  // const signUpMutation = useMutation({
+  //   mutationFn: async () => {
+  //     const { data, error } = await supabase.auth.signUp({
+  //       email: watchEmail,
+  //       password: watchPassword,
+  //       options: {
+  //         emailRedirectTo: `${window.location.origin}/signup/confirm`,
+  //       },
+  //     });
+
+  //     if (error) {
+  //       throw new Error(error.message);
+  //     }
+
+  //     return data;
+  //   },
+  // });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     console.log(data);

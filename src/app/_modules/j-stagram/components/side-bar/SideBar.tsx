@@ -1,10 +1,16 @@
 'use client';
 
 import * as S from './styled';
-import Link from 'next/link';
 import Image from 'next/image';
+import { createBrowserSupabaseClient } from 'utils/supabase/client';
 
 const SideBar = () => {
+  const supabase = createBrowserSupabaseClient();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
+
   return (
     <S.SideBarContainer>
       <S.SideBarHomeLink href='/j-stagram' />
@@ -29,7 +35,7 @@ const SideBar = () => {
         </S.SideBarProfileLink>
       </S.SideBarContent>
       <S.SideBarLogoutButton>
-        <i className='fa-solid fa-right-from-bracket'></i>
+        <i className='fa-solid fa-right-from-bracket' onClick={handleLogout}></i>
       </S.SideBarLogoutButton>
     </S.SideBarContainer>
   );

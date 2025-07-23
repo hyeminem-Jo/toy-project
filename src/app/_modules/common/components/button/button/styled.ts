@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 
 type ButtonProps = {
   $widthFull: boolean;
@@ -22,14 +23,18 @@ export const Button = styled.button<ButtonProps>`
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   transition: all 0.15s ease-in-out;
 
-  &:hover {
-    background-color: ${({ $filled }) => $filled && '#fff'};
-    color: ${({ $filled }) => $filled && '#222'};
-    border-color: ${({ $filled }) => $filled && '#222'};
-    i::before {
-      color: ${({ $filled }) => $filled && '#222'};
-    }
-  }
+  ${({ disabled, $filled }) =>
+    !disabled &&
+    css`
+      &:hover {
+        background-color: ${$filled && '#fff'};
+        color: ${$filled && '#222'};
+        border-color: ${$filled && '#222'};
+        i::before {
+          color: ${$filled && '#222'};
+        }
+      }
+    `}
 
   i {
     color: ${({ $filled }) => $filled && '#fff !important'};

@@ -6,3 +6,16 @@ export type FileObject = {
   last_accessed_at: string;
   metadata: Record<string, any>;
 };
+
+export interface MyInfo {
+  id: string;
+  email: string;
+  phone: string;
+  created_at: string;
+  last_sign_in_at: string;
+}
+
+export interface User {
+  name: string;
+  email: string;
+}

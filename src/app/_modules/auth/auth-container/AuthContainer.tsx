@@ -12,6 +12,7 @@ const AuthContainer = () => {
   const handleViewChange = (view: 'SIGN_IN' | 'SIGN_UP') => {
     setView(view);
   };
+
   return (
     <S.AuthContainer>
       <S.AuthBoxWrap>

@@ -1,10 +1,24 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as S from './styled';
 import SideBar from '../side-bar/SideBar';
+import { MyInfo } from '@/app/types/commonType';
+import { myInfoState } from '@/app/store';
+import { useSetAtom } from 'jotai';
 
-const JStagramContainer = ({ children }: { children: React.ReactNode }) => {
+interface JStagramContainerProps {
+  children: React.ReactNode;
+  myData: MyInfo;
+}
+
+const JStagramContainer = ({ children, myData }: JStagramContainerProps) => {
+  const setMyInfo = useSetAtom(myInfoState);
+
+  useEffect(() => {
+    setMyInfo(myData);
+  }, [myData, setMyInfo]);
+
   return (
     <S.JStagramContainer>
       <SideBar />

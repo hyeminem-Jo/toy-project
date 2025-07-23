@@ -90,7 +90,6 @@ export const SideBarProfileLink = styled(Link)`
   }
 
   @media (max-width: ${BREAKPOINT_SM}px) {
-    /* order: 3; */
     width: 3rem;
     height: 3rem;
     margin: 0;
@@ -117,7 +116,5 @@ export const SideBarLogoutButton = styled.button`
 
   @media (max-width: ${BREAKPOINT_SM}px) {
     display: none;
-    /* width: 4rem;
-    margin-top: 0; */
   }
 `;
