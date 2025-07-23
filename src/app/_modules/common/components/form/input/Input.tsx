@@ -2,14 +2,11 @@
 
 import * as S from './styled';
 import { useState } from 'react';
-import { useIsMobile } from '@/app/_modules/common/hooks/useIsMobile';
 import { Ref } from 'react';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   id: string;
   name?: string;
-  label?: string;
-  required?: boolean;
   maxLength?: number;
   type?: 'text' | 'password' | 'number';
   width?: number;
@@ -44,22 +41,14 @@ function Input({
   isLineThrough = false,
   color = 'white',
   inputRef,
-  label,
-  required,
   error,
   ...rest
 }: InputProps) {
   const [isFocus, setIsFocus] = useState(false);
-  const isMobile = useIsMobile();
+
   return (
     <S.InputFieldset $width={width}>
       <S.InputWrap>
-        {/* {label && (
-          <label htmlFor={id || name}>
-            {label}
-            {required && ' *'}
-          </label>
-        )} */}
         <S.Input
           id={id || name}
           name={name}
