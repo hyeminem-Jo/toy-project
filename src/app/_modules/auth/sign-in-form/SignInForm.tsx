@@ -14,17 +14,12 @@ const schema = z.object({
   password: z.string().min(1, '비밀번호를 입력해주세요.'),
 });
 
-interface SignInFormProps {
-  setView: (view: 'SIGN_IN' | 'SIGN_UP') => void;
-}
-
-const SignInForm = ({ setView }: SignInFormProps) => {
+const SignInForm = () => {
   const supabase = createBrowserSupabaseClient();
 
   const {
     control,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -35,31 +30,30 @@ const SignInForm = ({ setView }: SignInFormProps) => {
     mode: 'onChange',
   });
 
-  // const watchEmail = watch('email');
-  // const watchPassword = watch('password');
+  const signInMutation = useMutation({
+    mutationFn: async (formData: z.infer<typeof schema>) => {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
 
-  // console.log(watchEmail, watchPassword);
+      if (data) {
+        console.log(data, '로그인 성공');
+      }
 
-  // const signUpMutation = useMutation({
-  //   mutationFn: async () => {
-  //     const { data, error } = await supabase.auth.signUp({
-  //       email: watchEmail,
-  //       password: watchPassword,
-  //       options: {
-  //         emailRedirectTo: `${window.location.origin}/signup/confirm`,
-  //       },
-  //     });
-
-  //     if (error) {
-  //       throw new Error(error.message);
-  //     }
-
-  //     return data;
-  //   },
-  // });
+      if (error) {
+        if (error.message === 'Invalid login credentials') {
+          alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+        } else {
+          alert(error.message);
+        }
+        throw new Error(error.message);
+      }
+    },
+  });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    console.log(data);
+    signInMutation.mutate(data);
   };
 
   return (
@@ -98,13 +92,7 @@ const SignInForm = ({ setView }: SignInFormProps) => {
           />
         )}
       />
-      <Button
-        type='submit'
-        text='로그인'
-        filled
-        widthFull
-        // onClick={() => router.push('/')}
-      />
+      <Button type='submit' text='로그인' filled widthFull loading={signInMutation.isPending} />
     </S.SignInFormWrap>
   );
 };

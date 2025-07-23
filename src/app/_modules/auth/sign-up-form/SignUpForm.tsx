@@ -15,24 +15,21 @@ const schema = z
     email: z.string().min(1, '이메일을 입력해주세요.').email('이메일 형식이 올바르지 않습니다.'),
     password: z.string().min(1, '비밀번호를 입력해주세요.'),
     passwordConfirm: z.string().min(1, '비밀번호를 다시 입력해주세요.'),
+    otp: z.string(),
   })
   .refine((data) => data.password === data.passwordConfirm, {
     path: ['passwordConfirm'],
     message: '비밀번호가 일치하지 않습니다',
   });
 
-interface SignUpFormProps {
-  setView: (view: 'SIGN_IN' | 'SIGN_UP') => void;
-}
-
-const SignUpForm = ({ setView }: SignUpFormProps) => {
+const SignUpForm = () => {
   const supabase = createBrowserSupabaseClient();
   const [confirmationRequired, setConfirmationRequired] = useState(false);
 
   const {
     control,
     handleSubmit,
-    // watch,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(schema),
@@ -40,12 +37,10 @@ const SignUpForm = ({ setView }: SignUpFormProps) => {
       email: '',
       password: '',
       passwordConfirm: '',
+      otp: '',
     },
     mode: 'onChange',
   });
-
-  // const watchEmail = watch('email');
-  // const watchPassword = watch('password');
 
   const signUpMutation = useMutation({
     mutationFn: async (formData: z.infer<typeof schema>) => {
@@ -71,71 +66,125 @@ const SignUpForm = ({ setView }: SignUpFormProps) => {
     },
   });
 
+  const confirmMutation = useMutation({
+    mutationFn: async (formData: z.infer<typeof schema>) => {
+      const { data, error } = await supabase.auth.verifyOtp({
+        type: 'signup',
+        email: formData.email,
+        token: formData.otp,
+      });
+
+      if (data) {
+        setConfirmationRequired(true);
+      }
+
+      if (error) {
+        if (error.message === 'Token has expired or is invalid') {
+          alert('토큰이 만료되었거나 유효하지 않습니다.');
+        } else {
+          alert(error.message);
+        }
+        throw new Error(error.message);
+      }
+
+      return data;
+    },
+  });
+
   const onSubmit = (formData: z.infer<typeof schema>) => {
-    signUpMutation.mutate(formData);
+    if (confirmationRequired) {
+      if (watch('otp').length === 6) {
+        confirmMutation.mutate(formData);
+      } else {
+        alert('6자리 숫자로 입력해주세요.');
+      }
+    } else {
+      signUpMutation.mutate(formData);
+    }
   };
 
   return (
     <S.SignUpFormWrap onSubmit={handleSubmit(onSubmit)}>
-      <Controller
-        name='email'
-        control={control}
-        render={({ field }) => (
-          <Input
-            id='email'
-            label='이메일'
-            placeholder='이메일을 입력하세요.'
-            value={field.value}
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-            inputRef={field.ref}
-            error={errors.email?.message}
+      {confirmationRequired ? (
+        <Controller
+          name='otp'
+          control={control}
+          render={({ field }) => (
+            <Input
+              id='otp'
+              type='text'
+              label='otp'
+              placeholder='otp 6자리를 입력해주세요.'
+              value={field.value}
+              onChange={field.onChange}
+              onBlur={field.onBlur}
+              inputRef={field.ref}
+              error={errors.otp?.message}
+            />
+          )}
+        />
+      ) : (
+        <>
+          <Controller
+            name='email'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='email'
+                label='이메일'
+                placeholder='이메일을 입력하세요.'
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                inputRef={field.ref}
+                error={errors.email?.message}
+              />
+            )}
           />
-        )}
-      />
-      <Controller
-        name='password'
-        control={control}
-        render={({ field }) => (
-          <Input
-            id='password'
-            label='비밀번호'
-            placeholder='비밀번호를 입력하세요.'
-            value={field.value}
-            onChange={field.onChange}
-            maxLength={12}
-            onBlur={field.onBlur}
-            inputRef={field.ref}
-            type='password'
-            error={errors.password?.message}
+          <Controller
+            name='password'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='password'
+                label='비밀번호'
+                placeholder='비밀번호를 입력하세요.'
+                value={field.value}
+                onChange={field.onChange}
+                maxLength={12}
+                onBlur={field.onBlur}
+                inputRef={field.ref}
+                type='password'
+                error={errors.password?.message}
+              />
+            )}
           />
-        )}
-      />
-      <Controller
-        name='passwordConfirm'
-        control={control}
-        render={({ field }) => (
-          <Input
-            id='passwordConfirm'
-            label='비밀번호 확인'
-            placeholder='비밀번호를 다시 입력하세요.'
-            value={field.value}
-            onChange={field.onChange}
-            onBlur={field.onBlur}
-            inputRef={field.ref}
-            type='password'
-            error={errors.passwordConfirm?.message}
+          <Controller
+            name='passwordConfirm'
+            control={control}
+            render={({ field }) => (
+              <Input
+                id='passwordConfirm'
+                label='비밀번호 확인'
+                placeholder='비밀번호를 다시 입력하세요.'
+                value={field.value}
+                onChange={field.onChange}
+                onBlur={field.onBlur}
+                inputRef={field.ref}
+                type='password'
+                error={errors.passwordConfirm?.message}
+              />
+            )}
           />
-        )}
-      />
+        </>
+      )}
       <Button
         type='submit'
-        text={confirmationRequired ? '메일함을 확인해주세요.' : '가입하기'}
+        text={confirmationRequired ? '인증하기' : '가입하기'}
         filled
         widthFull
-        loading={signUpMutation.isPending}
-        disabled={confirmationRequired}
-        // onClick={() => router.push('/')}
+        loading={confirmationRequired ? confirmMutation.isPending : signUpMutation.isPending}
+        disabled={confirmationRequired ? confirmMutation.isPending : signUpMutation.isPending}
       />
     </S.SignUpFormWrap>
   );

@@ -11,7 +11,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   required?: boolean;
   maxLength?: number;
-  type?: 'text' | 'password';
+  type?: 'text' | 'password' | 'number';
   width?: number;
   isSearch?: boolean;
   isUnderline?: boolean;

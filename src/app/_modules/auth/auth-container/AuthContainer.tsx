@@ -26,11 +26,7 @@ const AuthContainer = () => {
               sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
             />
           </S.AuthImageWrap>
-          {view === 'SIGN_IN' ? (
-            <SignInForm setView={handleViewChange} />
-          ) : (
-            <SignUpForm setView={handleViewChange} />
-          )}
+          {view === 'SIGN_IN' ? <SignInForm /> : <SignUpForm />}
         </S.AuthBox>
         <S.AuthDescBox>
           {view === 'SIGN_IN' ? '아직 계정이 없으신가요? 🤔' : '이미 계정이 있으신가요? ☺️'}
