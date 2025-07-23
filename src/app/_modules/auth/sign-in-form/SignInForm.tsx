@@ -64,7 +64,6 @@ const SignInForm = () => {
         render={({ field }) => (
           <Input
             id='email'
-            label='이메일'
             placeholder='이메일을 입력하세요.'
             value={field.value}
             onChange={field.onChange}
@@ -80,7 +79,6 @@ const SignInForm = () => {
         render={({ field }) => (
           <Input
             id='password'
-            label='비밀번호'
             maxLength={12}
             placeholder='비밀번호를 입력하세요.'
             value={field.value}
