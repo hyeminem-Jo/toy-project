@@ -9,6 +9,8 @@ import Loading from '@/app/_modules/common/components/loading/Loading';
 import { useMemo } from 'react';
 
 const GalleryImageList = ({ searchInput }: { searchInput: string }) => {
+  // TODO: 로그인/비로그인 상태에서 파일 조회/업데이트/삭제 처리가 되는지 확인 요망
+
   const searchImagesQuery = useQuery({
     queryKey: ['images', searchInput],
     queryFn: () => searchFiles(searchInput),
