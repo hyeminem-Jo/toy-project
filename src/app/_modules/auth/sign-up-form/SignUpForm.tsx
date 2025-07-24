@@ -9,6 +9,7 @@ import { z } from 'zod';
 import { createBrowserSupabaseClient } from 'utils/supabase/client';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
+import KaKaoButton from '../kakao-button/KaKaoButton';
 
 const schema = z
   .object({
@@ -183,6 +184,7 @@ const SignUpForm = () => {
         loading={confirmationRequired ? confirmMutation.isPending : signUpMutation.isPending}
         disabled={confirmationRequired ? confirmMutation.isPending : signUpMutation.isPending}
       />
+      <KaKaoButton />
     </S.SignUpFormWrap>
   );
 };

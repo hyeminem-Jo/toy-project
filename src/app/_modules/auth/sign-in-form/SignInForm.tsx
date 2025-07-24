@@ -8,6 +8,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { createBrowserSupabaseClient } from 'utils/supabase/client';
 import { useMutation } from '@tanstack/react-query';
+import KaKaoButton from '../kakao-button/KaKaoButton';
 
 const schema = z.object({
   email: z.string().min(1, '이메일을 입력해주세요.').email('이메일 형식이 올바르지 않습니다.'),
@@ -51,26 +52,6 @@ const SignInForm = () => {
       }
     },
   });
-
-  const signInWithKakao = async () => {
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: 'kakao',
-      options: {
-        redirectTo: process.env.NEXT_PUBLIC_VERCEL_URL
-          ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth/callback`
-          : 'http://localhost:3000/api/auth/callback',
-      },
-    });
-
-    if (data) {
-      console.log(data, '카카오 로그인 성공');
-    }
-
-    if (error) {
-      alert(error.message);
-      throw new Error(error.message);
-    }
-  };
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     signInMutation.mutate(data);
@@ -118,21 +99,7 @@ const SignInForm = () => {
         widthFull
         loading={signInMutation.isPending}
       />
-      <Button
-        type='button'
-        text={
-          <S.KakaoButtonInner>
-            <img src='/assets/images/kakao-logo.png' alt='kakao' />
-            <span>카카오 로그인</span>
-          </S.KakaoButtonInner>
-        }
-        onClick={signInWithKakao}
-        size='md'
-        filled
-        widthFull
-        bgColor='#FEE300'
-        textColor='#222'
-      />
+      <KaKaoButton />
     </S.SignInFormWrap>
   );
 };

@@ -7,7 +7,7 @@ import * as S from './styled';
 import Button from '@/app/_modules/common/components/button/button/Button';
 
 const AuthContainer = () => {
-  const [view, setView] = useState<'SIGN_IN' | 'SIGN_UP'>('SIGN_UP');
+  const [view, setView] = useState<'SIGN_IN' | 'SIGN_UP'>('SIGN_IN');
 
   const handleViewChange = (view: 'SIGN_IN' | 'SIGN_UP') => {
     setView(view);
