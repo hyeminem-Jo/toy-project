@@ -177,6 +177,7 @@ const SignUpForm = () => {
       <Button
         type='submit'
         text={confirmationRequired ? '인증하기' : '가입하기'}
+        size='md'
         filled
         widthFull
         loading={confirmationRequired ? confirmMutation.isPending : signUpMutation.isPending}

@@ -52,6 +52,26 @@ const SignInForm = () => {
     },
   });
 
+  const signInWithKakao = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'kakao',
+      options: {
+        redirectTo: process.env.NEXT_PUBLIC_VERCEL_URL
+          ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}/api/auth/callback`
+          : 'http://localhost:3000/api/auth/callback',
+      },
+    });
+
+    if (data) {
+      console.log(data, '카카오 로그인 성공');
+    }
+
+    if (error) {
+      alert(error.message);
+      throw new Error(error.message);
+    }
+  };
+
   const onSubmit = (data: z.infer<typeof schema>) => {
     signInMutation.mutate(data);
   };
@@ -90,7 +110,29 @@ const SignInForm = () => {
           />
         )}
       />
-      <Button type='submit' text='로그인' filled widthFull loading={signInMutation.isPending} />
+      <Button
+        type='submit'
+        text='로그인'
+        size='md'
+        filled
+        widthFull
+        loading={signInMutation.isPending}
+      />
+      <Button
+        type='button'
+        text={
+          <S.KakaoButtonInner>
+            <img src='/assets/images/kakao-logo.png' alt='kakao' />
+            <span>카카오 로그인</span>
+          </S.KakaoButtonInner>
+        }
+        onClick={signInWithKakao}
+        size='md'
+        filled
+        widthFull
+        bgColor='#FEE300'
+        textColor='#222'
+      />
     </S.SignInFormWrap>
   );
 };

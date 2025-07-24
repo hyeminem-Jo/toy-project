@@ -4,7 +4,7 @@ import Lottie from 'lottie-react';
 import spinner from '@/assets/lotties/spinner.json';
 
 interface ButtonProps {
-  text: string;
+  text: string | React.ReactNode;
   iconName?: string;
   widthFull?: boolean;
   onClick?: () => void;
@@ -12,6 +12,9 @@ interface ButtonProps {
   type?: 'button' | 'submit';
   filled?: boolean;
   loading?: boolean;
+  size?: 'sm' | 'md';
+  bgColor?: 'default' | string;
+  textColor?: 'default' | string;
 }
 
 const Button = ({
@@ -23,6 +26,9 @@ const Button = ({
   type = 'button',
   filled = false,
   loading = false,
+  size = 'sm',
+  bgColor = 'default',
+  textColor = 'default',
 }: ButtonProps) => {
   return (
     <S.Button
@@ -31,10 +37,13 @@ const Button = ({
       $widthFull={widthFull}
       $filled={filled}
       disabled={disabled || loading}
+      $size={size}
+      $bgColor={bgColor}
+      $textColor={textColor}
     >
       {loading && <Lottie animationData={spinner} loop={true} style={{ width: 20, height: 20 }} />}
       {iconName && !loading && <i className={`fa-solid fa-${iconName}`} />}
-      <S.ButtonText>{text}</S.ButtonText>
+      <S.ButtonText $size={size}>{text}</S.ButtonText>
     </S.Button>
   );
 };
