@@ -21,7 +21,13 @@ const JStagramHome = () => {
         <>
           <S.JStagramHomeDesc>
             <S.JStagramHomeGreeting>
-              Hello <S.JStagramHomeMyName>{myInfo?.email?.split('@')[0]}</S.JStagramHomeMyName> 👋🏻
+              Hello{' '}
+              <S.JStagramHomeMyName>
+                {myInfo?.user_metadata?.preferred_username ||
+                  myInfo?.user_metadata?.name ||
+                  myInfo?.email?.split('@')[0]}
+              </S.JStagramHomeMyName>{' '}
+              👋🏻
             </S.JStagramHomeGreeting>
             <span>J-stagram 에 방문하신 것을 환영합니다 &#58;&#41;</span>
           </S.JStagramHomeDesc>

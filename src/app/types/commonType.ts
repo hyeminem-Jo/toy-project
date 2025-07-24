@@ -4,7 +4,7 @@ export type FileObject = {
   updated_at: string;
   created_at: string;
   last_accessed_at: string;
-  metadata: Record<string, any>;
+  metadata: Record<string, string>;
 };
 
 export interface MyInfo {
@@ -13,6 +13,12 @@ export interface MyInfo {
   phone: string;
   created_at: string;
   last_sign_in_at: string;
+  user_metadata: {
+    avatar_url: string;
+    preferred_username: string;
+    name: string;
+    user_name: string;
+  };
 }
 
 export interface User {

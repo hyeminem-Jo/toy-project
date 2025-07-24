@@ -1,6 +1,16 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { BREAKPOINT_SM } from '@/app/_modules/common/constant/breakpoint';
+import { css } from '@emotion/react';
+
+interface SideBarProfileLinkProps {
+  $hasImage: boolean;
+  $isActive?: boolean;
+}
+
+interface SideBarLinkProps {
+  $isActive?: boolean;
+}
 
 export const SideBarContainer = styled.div`
   position: fixed;
@@ -59,7 +69,9 @@ export const SideBarHomeLink = styled(Link)`
   }
 `;
 
-export const SideBarLink = styled(Link)`
+export const SideBarLink = styled(Link, {
+  shouldForwardProp: (prop) => prop !== '$isActive',
+})<SideBarLinkProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -73,11 +85,20 @@ export const SideBarLink = styled(Link)`
   &:hover {
     background-color: #f0f0f0;
   }
+
+  ${({ $isActive }) =>
+    $isActive &&
+    css`
+      background-color: #f0f0f0;
+      font-weight: bold;
+    `}
 `;
 
-export const SideBarProfileLink = styled(Link)`
+export const SideBarProfileLink = styled(Link, {
+  shouldForwardProp: (prop) => prop !== '$hasImage' && prop !== '$isActive',
+})<SideBarProfileLinkProps>`
   position: relative;
-  width: 80%;
+  width: 85%;
   aspect-ratio: 1/1;
   border-radius: 50%;
   overflow: hidden;
@@ -89,11 +110,34 @@ export const SideBarProfileLink = styled(Link)`
     object-fit: cover;
   }
 
+  ${({ $hasImage }) =>
+    !$hasImage &&
+    css`
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #eee;
+      i {
+        font-size: 1.7rem;
+      }
+    `}
+
+  ${({ $isActive }) =>
+    $isActive &&
+    css`
+      outline: 2px solid orange;
+      outline-offset: 2px;
+    `}
+
   @media (max-width: ${BREAKPOINT_SM}px) {
-    width: 3rem;
-    height: 3rem;
+    width: 3.3rem;
+    height: 3.3rem;
     margin: 0;
     margin-left: 0.5rem;
+
+    i {
+      font-size: 1.5rem;
+    }
   }
 `;
 
