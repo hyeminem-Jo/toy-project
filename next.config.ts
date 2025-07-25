@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
       new URL('https://ejxzslfkaxsbcabuiqzs.supabase.co/storage/v1/object/public/**'),
       new URL('https://image.tmdb.org/t/p/**'),
       new URL('http://k.kakaocdn.net/**'),
+      new URL('https://randomuser.me/api/portraits/med/men/**'),
     ],
   },
   webpack: (config) => {

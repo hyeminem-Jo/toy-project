@@ -1,4 +1,3 @@
-import AppLayout from '@/app/_modules/common/components/layout/AppLayout';
 import { createServerSupabaseClient } from 'utils/supabase/server';
 import AuthProvider from '@/app/config/AuthProvider';
 import { MyInfo } from '@/app/types/commonType';
@@ -12,9 +11,7 @@ export default async function AuthLayout({ children }: { children: React.ReactNo
 
   return (
     <AuthProvider accessToken={session?.access_token || ''}>
-      <AppLayout>
-        <JStagramAuthGate myData={session?.user as unknown as MyInfo}>{children}</JStagramAuthGate>
-      </AppLayout>
+      <JStagramAuthGate myData={session?.user as unknown as MyInfo}>{children}</JStagramAuthGate>
     </AuthProvider>
   );
 }

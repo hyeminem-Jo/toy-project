@@ -22,6 +22,8 @@ export const SideBarContainer = styled.div`
   height: 100dvh;
   padding: 3rem 2rem 4rem;
   border-right: 1px solid #ccc;
+  z-index: 100;
+  background-color: #fff;
 
   @media (max-width: ${BREAKPOINT_SM}px) {
     top: initial;
@@ -92,6 +94,16 @@ export const SideBarLink = styled(Link, {
       background-color: #f0f0f0;
       font-weight: bold;
     `}
+
+  @media (max-width: ${BREAKPOINT_SM}px) {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin: 0;
+
+    i {
+      font-size: 2rem;
+    }
+  }
 `;
 
 export const SideBarProfileLink = styled(Link, {

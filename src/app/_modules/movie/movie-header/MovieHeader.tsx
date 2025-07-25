@@ -50,7 +50,6 @@ const MovieHeader = () => {
         <S.MovieHeaderInputWrap>
           <Input
             id='movie-search'
-            label='영화 검색'
             placeholder='영화를 검색하세요.'
             value={searchInput}
             onChange={(e) => {
@@ -59,7 +58,7 @@ const MovieHeader = () => {
             isSearch={!isMobile}
             width={!isMobile ? 500 : undefined}
             color='black'
-            ref={inputRef}
+            inputRef={inputRef}
           />
         </S.MovieHeaderInputWrap>
       )}

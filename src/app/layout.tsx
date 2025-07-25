@@ -18,8 +18,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: '혜진이의 토이 프로젝트',
-  description: '혜진이의 토이 프로젝트입니다.',
+  title: '혜진쓰 토이 프로젝트',
+  description: '혜진쓰 토이 프로젝트입니다.',
 };
 
 export default function RootLayout({
