@@ -1,38 +1,36 @@
 'use client';
 
 import { useAtom } from 'jotai';
-import { selectedChatUserState } from '@/app/store';
+import { selectedChatUserIdState } from '@/app/store';
 import MessageUser from '../message-user/MessageUser';
 
 import * as S from './styled';
+import { useQuery } from '@tanstack/react-query';
+import { getAllUserList } from 'actions/messageActions';
+import { myInfoState } from '@/app/store';
 
 const MessageUserList = () => {
-  const [selectedChatUser, setSelectedChatUser] = useAtom(selectedChatUserState);
+  const [selectedUserId, setSelectedUserId] = useAtom(selectedChatUserIdState);
+  const [myInfo] = useAtom(myInfoState);
+
+  const getAllUserQuery = useQuery({
+    queryKey: ['getAllUser'],
+    queryFn: getAllUserList,
+  });
+
+  const filteredUsers = getAllUserQuery.data?.filter((user) => user.id !== myInfo?.id) || [];
 
   return (
     <S.MessageUserListContainer>
       <S.MessageUserList>
-        <MessageUser
-          index={1}
-          userId={1}
-          name='John Doe'
-          onClick={() => setSelectedChatUser({ id: 1, name: 'John Doe' })}
-          active={selectedChatUser.id === 1}
-        />
-        <MessageUser
-          index={2}
-          userId={2}
-          name='Jane Smith'
-          onClick={() => setSelectedChatUser({ id: 2, name: 'Jane Smith' })}
-          active={selectedChatUser.id === 2}
-        />
-        <MessageUser
-          index={3}
-          userId={3}
-          name='Mike Johnson'
-          active={selectedChatUser.id === 3}
-          onClick={() => setSelectedChatUser({ id: 3, name: 'Mike Johnson' })}
-        />
+        {filteredUsers.map((user) => (
+          <MessageUser
+            key={user.id}
+            user={user}
+            onClick={() => setSelectedUserId(user.id)}
+            active={selectedUserId === user.id}
+          />
+        ))}
       </S.MessageUserList>
     </S.MessageUserListContainer>
   );

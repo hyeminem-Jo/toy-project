@@ -1,10 +1,5 @@
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
 import { BREAKPOINT } from '@/app/_modules/common/constant/breakpoint';
-
-interface SideBarProfileLinkProps {
-  $hasImage: boolean;
-}
 
 export const JStagramMyPageContainer = styled.div`
   display: flex;
@@ -28,44 +23,6 @@ export const JStagramMyPageTitle = styled.h2`
   @media (max-width: ${BREAKPOINT}px) {
     font-size: 2.5rem;
     text-align: center;
-  }
-`;
-
-export const ProfileImage = styled.div<SideBarProfileLinkProps>`
-  position: relative;
-  width: 30rem;
-  aspect-ratio: 1/1;
-  border-radius: 50%;
-  overflow: hidden;
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  ${({ $hasImage }) =>
-    !$hasImage &&
-    css`
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: #eee;
-      i {
-        font-size: 10rem;
-        &::before {
-          color: #aaa;
-        }
-      }
-    `}
-
-  @media (max-width: ${BREAKPOINT}px) {
-    width: 15rem;
-    margin: 0;
-
-    i {
-      font-size: 6rem;
-    }
   }
 `;
 

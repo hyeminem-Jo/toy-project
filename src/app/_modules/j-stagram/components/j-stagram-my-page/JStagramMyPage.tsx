@@ -3,37 +3,27 @@
 import * as S from './styled';
 import { myInfoState } from '@/app/store';
 import { useAtomValue } from 'jotai';
-import Image from 'next/image';
 import DateUtil from '@/app/_modules/common/utils/dateUtil';
+import UserProfileImage from '@/app/_modules/common/components/user-profile-image/UserProfileImage';
 
 const JStagramMyPage = () => {
   const myInfo = useAtomValue(myInfoState);
 
   return (
     <S.JStagramMyPageContainer>
-      <S.ProfileImage $hasImage={!!myInfo?.user_metadata?.avatar_url}>
-        {myInfo?.user_metadata?.avatar_url ? (
-          <Image
-            src={myInfo?.user_metadata?.avatar_url}
-            alt='내 프로필 이미지'
-            fill
-            priority
-            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
-          />
-        ) : (
-          <i className='fa-solid fa-user' />
-        )}
-      </S.ProfileImage>
+      <UserProfileImage user={myInfo} size={300} mobileSize={200} />
       <div>
         <S.JStagramMyPageTitle>My Info</S.JStagramMyPageTitle>
         <S.JStagramMyPageTitle>_</S.JStagramMyPageTitle>
         <S.JStagramMyInfoList>
-          <S.JStagramMyInfoItem>
-            <S.JStagramMyInfoItemTitle>Name: </S.JStagramMyInfoItemTitle>
-            <S.JStagramMyInfoItemValue>
-              {myInfo?.user_metadata?.preferred_username || myInfo?.user_metadata?.name}
-            </S.JStagramMyInfoItemValue>
-          </S.JStagramMyInfoItem>
+          {(myInfo?.user_metadata?.preferred_username || myInfo?.user_metadata?.name) && (
+            <S.JStagramMyInfoItem>
+              <S.JStagramMyInfoItemTitle>Name: </S.JStagramMyInfoItemTitle>
+              <S.JStagramMyInfoItemValue>
+                {myInfo?.user_metadata?.preferred_username || myInfo?.user_metadata?.name}
+              </S.JStagramMyInfoItemValue>
+            </S.JStagramMyInfoItem>
+          )}
           <S.JStagramMyInfoItem>
             <S.JStagramMyInfoItemTitle>Email: </S.JStagramMyInfoItemTitle>
             <S.JStagramMyInfoItemValue>{myInfo?.email}</S.JStagramMyInfoItemValue>

@@ -20,7 +20,7 @@ export const MessageUserContainer = styled.button<MessageUserContainerProps>`
     $isChat &&
     css`
       width: 100%;
-      background-color: #eee;
+      background-color: #f5f5f5;
       pointer-events: none;
       cursor: default;
     `}

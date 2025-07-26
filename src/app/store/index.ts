@@ -21,9 +21,6 @@ export const myInfoState = atom<MyInfo>({
   },
 });
 
-export const selectedChatUserState = atom<User>({
-  id: null,
-  name: '',
-});
+export const selectedChatUserIdState = atom<string>('');
 
 export const movieSearchState = atom<string>('');

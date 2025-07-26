@@ -8,13 +8,15 @@ import { useIsMobile } from '@/app/_modules/common/hooks/useIsMobile';
 import { useRef, useState } from 'react';
 import MessageBubble from '../message-bubble/MessageBubble';
 import { useAtomValue } from 'jotai';
-import { selectedChatUserState } from '@/app/store';
+import { selectedChatUserIdState } from '@/app/store';
+import { useQuery } from '@tanstack/react-query';
+import { getUserById } from 'actions/messageActions';
 
 const MessageScreen = () => {
   const [searchInput, setSearchInput] = useState<string>('');
   const isMobile = useIsMobile();
   const inputRef = useRef<HTMLInputElement>(null);
-  const selectedChatUser = useAtomValue(selectedChatUserState);
+  const selectedChatUserId = useAtomValue(selectedChatUserIdState);
 
   const messages = [
     {
@@ -111,17 +113,19 @@ const MessageScreen = () => {
     },
   ];
 
+  const selectedChatUserQuery = useQuery({
+    queryKey: ['selectedChatUser', selectedChatUserId],
+    queryFn: () => getUserById(selectedChatUserId),
+    enabled: !!selectedChatUserId,
+  });
+
+  console.log(selectedChatUserQuery.data);
+
   return (
     <S.MessageScreenContainer>
-      {selectedChatUser.id ? (
+      {selectedChatUserQuery.data ? (
         <>
-          <MessageUser
-            index={1}
-            userId={selectedChatUser.id}
-            name={selectedChatUser.name}
-            onlineAt='2025-07-21'
-            isChat
-          />
+          <MessageUser user={selectedChatUserQuery.data} onlineAt='2025-07-21' isChat />
           <S.MessageScreenChat>
             {messages.map((message, index) => (
               <MessageBubble
