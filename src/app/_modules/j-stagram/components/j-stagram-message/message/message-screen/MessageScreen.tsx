@@ -5,113 +5,30 @@ import Input from '@/app/_modules/common/components/form/input/Input';
 import Button from '@/app/_modules/common/components/button/button/Button';
 import * as S from './styled';
 import { useIsMobile } from '@/app/_modules/common/hooks/useIsMobile';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import MessageBubble from '../message-bubble/MessageBubble';
 import { useAtomValue } from 'jotai';
 import { selectedChatUserIdState } from '@/app/store';
-import { useQuery } from '@tanstack/react-query';
-import { getUserById } from 'actions/messageActions';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { getUserById, getAllMessages, sendMessage } from 'actions/messageActions';
+import { createBrowserSupabaseClient } from 'utils/supabase/client';
 
 const MessageScreen = () => {
-  const [searchInput, setSearchInput] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
   const isMobile = useIsMobile();
   const inputRef = useRef<HTMLInputElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
   const selectedChatUserId = useAtomValue(selectedChatUserIdState);
+  const supabase = createBrowserSupabaseClient();
 
-  const messages = [
-    {
-      isMe: true,
-      message: 'Hello',
-    },
-    {
-      isMe: false,
-      message: 'Hello222',
-    },
-    {
-      isMe: true,
-      message: 'Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333',
-    },
-    {
-      isMe: true,
-      message: 'Hello',
-    },
-    {
-      isMe: false,
-      message: 'Hello222',
-    },
-    {
-      isMe: true,
-      message: 'Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333',
-    },
-    {
-      isMe: true,
-      message: 'Hello',
-    },
-    {
-      isMe: false,
-      message: 'Hello222',
-    },
-    {
-      isMe: true,
-      message: 'Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333',
-    },
-    {
-      isMe: true,
-      message: 'Hello',
-    },
-    {
-      isMe: false,
-      message: 'Hello222',
-    },
-    {
-      isMe: true,
-      message: 'Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333',
-    },
-    {
-      isMe: true,
-      message: 'Hello',
-    },
-    {
-      isMe: false,
-      message: 'Hello222',
-    },
-    {
-      isMe: true,
-      message: 'Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333',
-    },
-    {
-      isMe: true,
-      message: 'Hello',
-    },
-    {
-      isMe: false,
-      message: 'Hello222',
-    },
-    {
-      isMe: true,
-      message: 'Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333',
-    },
-    {
-      isMe: true,
-      message: 'Hello',
-    },
-    {
-      isMe: false,
-      message: 'Hello222',
-    },
-    {
-      isMe: true,
-      message: 'Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333Hello333333',
-    },
-    {
-      isMe: true,
-      message: 'Hello',
-    },
-    {
-      isMe: false,
-      message: 'Hello222',
-    },
-  ];
+  const scrollToBottom = () => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  };
 
   const selectedChatUserQuery = useQuery({
     queryKey: ['selectedChatUser', selectedChatUserId],
@@ -119,40 +36,89 @@ const MessageScreen = () => {
     enabled: !!selectedChatUserId,
   });
 
-  console.log(selectedChatUserQuery.data);
+  const sendMessageMutation = useMutation({
+    mutationFn: async () => {
+      await sendMessage({ message, otherUserId: selectedChatUserId });
+    },
+    onSuccess: () => {
+      setMessage('');
+      getAllMessagesQuery.refetch();
+      inputRef.current?.focus();
+    },
+  });
+
+  const getAllMessagesQuery = useQuery({
+    queryKey: ['messages', selectedChatUserId],
+    queryFn: () => getAllMessages({ otherUserId: selectedChatUserId }),
+    enabled: !!selectedChatUserId,
+  });
+
+  // 메시지가 변경될 때마다 스크롤을 맨 아래로 이동
+  useEffect(() => {
+    scrollToBottom();
+  }, [getAllMessagesQuery.data]);
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('message_postgres_changes')
+      .on(
+        'postgres_changes',
+        { event: 'INSERT', schema: 'public', table: 'message' },
+        (payload) => {
+          // console.log('Channel data:', payload);
+          if (payload.eventType === 'INSERT' && !payload.errors) {
+            getAllMessagesQuery.refetch();
+          }
+        },
+      );
+
+    channel.subscribe();
+
+    return () => {
+      channel.unsubscribe(); // MessageScreen 컴포넌트가 언마운트될 때 채널 구독 해제
+    };
+  }, []);
 
   return (
     <S.MessageScreenContainer>
       {selectedChatUserQuery.data ? (
         <>
           <MessageUser user={selectedChatUserQuery.data} onlineAt='2025-07-21' isChat />
-          <S.MessageScreenChat>
-            {messages.map((message, index) => (
+          <S.MessageScreenChat ref={chatContainerRef}>
+            {getAllMessagesQuery.data?.map((message) => (
               <MessageBubble
-                key={`${message.message}-${index}`}
-                isMe={message.isMe}
+                key={message.id}
+                isMe={message.receiver === selectedChatUserId}
                 message={message.message}
               />
             ))}
           </S.MessageScreenChat>
-          <S.MessageScreenChatForm>
+          <S.MessageScreenChatForm
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (message.trim()) {
+                sendMessageMutation.mutate();
+              }
+            }}
+          >
             <Input
               id='chat'
-              value={searchInput}
+              value={message}
               onChange={(e) => {
-                setSearchInput(e.target.value);
+                setMessage(e.target.value);
               }}
-              isSearch={!isMobile}
               width={!isMobile ? 500 : undefined}
               inputRef={inputRef}
             />
             <Button
-              type='button'
+              type='submit'
               text='전송'
               size='md'
               filled
               bgColor='dodgerblue'
               textColor='white'
+              disabled={!message}
+              loading={sendMessageMutation.isPending}
             />
           </S.MessageScreenChatForm>
         </>

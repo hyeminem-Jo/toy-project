@@ -1,7 +1,7 @@
 'use server';
 
 import { createServerSupabaseClient } from 'utils/supabase/server';
-import { handleError } from './errorUtils';
+import { handleError } from './actionUtils';
 
 export async function searchMovies(search: string = '', page: number = 1, pageSize: number = 12) {
   const supabase = await createServerSupabaseClient();

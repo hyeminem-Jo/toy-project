@@ -2,7 +2,7 @@
 
 import { createServerSupabaseClient } from 'utils/supabase/server';
 import { Database } from 'types_db';
-import { handleError } from './errorUtils';
+import { handleError } from './actionUtils';
 
 export type TodoRow = Database['public']['Tables']['todo']['Row'];
 export type TodoRowInsert = Database['public']['Tables']['todo']['Insert'];

@@ -18,6 +18,12 @@ export const MessageScreenChat = styled.div`
   padding: 1.5rem;
   overflow-y: auto;
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
   @media (max-width: ${BREAKPOINT_SM}px) {
     padding: 1rem;
   }
