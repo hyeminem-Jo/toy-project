@@ -5,6 +5,7 @@ import { BREAKPOINT_SM } from '@/app/_modules/common/constant/breakpoint';
 type MessageUserContainerProps = {
   $active?: boolean;
   $isChat?: boolean;
+  $isOnline?: boolean;
 };
 
 export const MessageUserContainer = styled.button<MessageUserContainerProps>`
@@ -34,6 +35,8 @@ export const MessageUserContainer = styled.button<MessageUserContainerProps>`
   }
 
   @media (max-width: ${BREAKPOINT_SM}px) {
+    gap: 0.5rem;
+
     ${({ $isChat }) =>
       !$isChat &&
       css`
@@ -44,6 +47,30 @@ export const MessageUserContainer = styled.button<MessageUserContainerProps>`
           font-size: 1.2rem;
         }
       `}
+  }
+`;
+
+export const MessageUserImageWrap = styled.div<MessageUserContainerProps>`
+  position: relative;
+  border-radius: 50%;
+
+  ${({ $isOnline }) =>
+    $isOnline &&
+    css`
+      &::after {
+        content: '';
+      }
+    `}
+
+  &::after {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 10px;
+    height: 10px;
+    background-color: #32cd32;
+    border-radius: 50%;
+    border: 2px solid #fff;
   }
 `;
 

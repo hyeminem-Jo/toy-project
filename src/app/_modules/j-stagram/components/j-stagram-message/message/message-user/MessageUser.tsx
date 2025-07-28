@@ -17,7 +17,9 @@ interface MessageUserProps {
 const MessageUser = ({ user, onlineAt, isChat, active, onClick }: MessageUserProps) => {
   return (
     <S.MessageUserContainer $active={active} $isChat={isChat} onClick={onClick}>
-      <UserProfileImage user={user} size={40} mobileSize={!isChat ? 45 : 40} />
+      <S.MessageUserImageWrap $isOnline={!!onlineAt}>
+        <UserProfileImage user={user} size={40} mobileSize={!isChat ? 45 : 40} />
+      </S.MessageUserImageWrap>
       <S.MessageUserInfo $isChat={isChat}>
         <S.MessageUserName>
           {user.user_metadata?.preferred_username ||
@@ -26,7 +28,7 @@ const MessageUser = ({ user, onlineAt, isChat, active, onClick }: MessageUserPro
         </S.MessageUserName>
         {onlineAt && (
           <S.MessageUserOnlineAt>
-            {DateUtil.renderDateSnsType(onlineAt)} 활성화
+            {isChat && '최근 접속:'} {DateUtil.renderDateSnsType(onlineAt)}
           </S.MessageUserOnlineAt>
         )}
       </S.MessageUserInfo>

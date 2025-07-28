@@ -17,7 +17,7 @@ export const MessageUserListContainer = styled.div`
 
   @media (max-width: ${BREAKPOINT_SM}px) {
     width: 100%;
-    height: 100px;
+    height: 110px;
     overflow-x: auto;
     border-right: none;
     border-bottom: 1px solid #ddd;
@@ -29,6 +29,6 @@ export const MessageUserList = styled.div`
     display: flex;
     flex-direction: row;
     overflow-x: auto;
-    height: 100px;
+    height: 100%;
   }
 `;

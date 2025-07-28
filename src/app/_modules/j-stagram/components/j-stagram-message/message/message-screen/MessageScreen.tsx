@@ -8,7 +8,7 @@ import { useIsMobile } from '@/app/_modules/common/hooks/useIsMobile';
 import { useEffect, useRef, useState } from 'react';
 import MessageBubble from '../message-bubble/MessageBubble';
 import { useAtomValue } from 'jotai';
-import { selectedChatUserIdState } from '@/app/store';
+import { presenceState, selectedChatUserIdState } from '@/app/store';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { getUserById, getAllMessages, sendMessage } from 'actions/messageActions';
 import { createBrowserSupabaseClient } from 'utils/supabase/client';
@@ -20,6 +20,7 @@ const MessageScreen = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const selectedChatUserId = useAtomValue(selectedChatUserIdState);
   const supabase = createBrowserSupabaseClient();
+  const presence = useAtomValue(presenceState);
 
   const scrollToBottom = () => {
     if (chatContainerRef.current) {
@@ -83,7 +84,11 @@ const MessageScreen = () => {
     <S.MessageScreenContainer>
       {selectedChatUserQuery.data ? (
         <>
-          <MessageUser user={selectedChatUserQuery.data} onlineAt='2025-07-21' isChat />
+          <MessageUser
+            user={selectedChatUserQuery.data}
+            onlineAt={presence?.[selectedChatUserQuery.data.id]?.[0]?.online_at}
+            isChat
+          />
           <S.MessageScreenChat ref={chatContainerRef}>
             {getAllMessagesQuery.data?.map((message) => (
               <MessageBubble
