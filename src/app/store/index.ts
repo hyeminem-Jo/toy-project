@@ -25,7 +25,4 @@ export const selectedChatUserIdState = atom<string>('');
 
 export const movieSearchState = atom<string>('');
 
-export const presenceState = atom({
-  key: '',
-  default: null,
-});
+export const presenceState = atom<Record<string, unknown>>({});

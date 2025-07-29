@@ -70,11 +70,11 @@ const MessageScreen = () => {
   const supabase = createBrowserSupabaseClient();
   const presence = useAtomValue(presenceState);
 
-  const scrollToBottom = () => {
+  const scrollToBottom = (isSmooth: boolean = false) => {
     if (chatContainerRef.current) {
       chatContainerRef.current.scrollTo({
         top: chatContainerRef.current.scrollHeight,
-        behavior: 'smooth',
+        behavior: isSmooth ? 'smooth' : 'auto',
       });
     }
   };
@@ -102,10 +102,21 @@ const MessageScreen = () => {
     enabled: !!selectedChatUserId,
   });
 
-  // 메시지가 변경될 때마다 스크롤을 맨 아래로 이동
+  // 처음 메시지 접근시 스크롤 맨 아래로 이동
+  // TODO: 첫 진입시 스크롤 맨 아래로 이동 안됨
   useEffect(() => {
-    scrollToBottom();
-  }, [getAllMessagesQuery.data]);
+    if (selectedChatUserId !== '' && chatContainerRef.current) {
+      scrollToBottom(false);
+    }
+    console.log('selectedChatUserId', selectedChatUserId, chatContainerRef.current);
+  }, [selectedChatUserId]);
+
+  // 메시지 데이터가 로드될 때마다 스크롤을 맨 아래로 이동
+  useEffect(() => {
+    if (getAllMessagesQuery.data) {
+      scrollToBottom(true);
+    }
+  }, [getAllMessagesQuery.data, selectedChatUserId]);
 
   useEffect(() => {
     const channel = supabase
@@ -134,7 +145,12 @@ const MessageScreen = () => {
         <>
           <MessageUser
             user={selectedChatUserQuery.data}
-            onlineAt={(presence?.[selectedChatUserQuery.data.id]?.[0]?.online_at as string) || ''}
+            onlineAt={(() => {
+              const userPresence = presence?.[selectedChatUserQuery.data.id];
+              return Array.isArray(userPresence) && userPresence.length > 0
+                ? userPresence[0]?.online_at || ''
+                : '';
+            })()}
             isChat
           />
           <S.MessageScreenChat ref={chatContainerRef}>
