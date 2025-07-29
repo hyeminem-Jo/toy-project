@@ -28,7 +28,6 @@ const MovieList = () => {
     threshold: 0,
   });
 
-  console.log('hasNextPage', hasNextPage);
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage && !isFetching) {
       fetchNextPage();
@@ -38,12 +37,11 @@ const MovieList = () => {
 
   return (
     <S.MovieListContainer>
-      {isFetching ||
-        (isFetchingNextPage && (
-          <S.LoadingWrap>
-            <Loading />
-          </S.LoadingWrap>
-        ))}
+      {(isFetching || isFetchingNextPage) && (
+        <S.LoadingWrap>
+          <Loading />
+        </S.LoadingWrap>
+      )}
       {data && (
         <>
           {data?.pages?.map((page) =>
