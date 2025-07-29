@@ -3,10 +3,13 @@
 import StarIcon from '@mui/icons-material/Star';
 import * as S from './styled';
 import { Database } from 'types_db';
+import Button from '@/app/_modules/common/components/button/button/Button';
+import { useRouter } from 'next/navigation';
 
 export type MovieRow = Database['public']['Tables']['movie']['Row'];
 
 const MovieDetailConainer = ({ movie }: { movie: MovieRow }) => {
+  const router = useRouter();
   return (
     <S.MovieDetailContainer>
       <S.MovieDetailContent>
@@ -33,6 +36,14 @@ const MovieDetailConainer = ({ movie }: { movie: MovieRow }) => {
             </S.MovieDetailAverage>
             <S.MovieDetailPopularity>관객수: {movie.popularity}</S.MovieDetailPopularity>
             <S.MovieDetailReleaseDate>개봉일: {movie.release_date}</S.MovieDetailReleaseDate>
+            <Button
+              text='목록으로 돌아가기'
+              bgColor='#fff'
+              textColor='#222'
+              onClick={() => {
+                router.push('/movie');
+              }}
+            />
           </S.MovieDetailBottom>
         </S.MovieDetailInfo>
       </S.MovieDetailContent>

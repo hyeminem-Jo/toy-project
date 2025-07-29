@@ -41,8 +41,9 @@ export const MessageUserContainer = styled.button<MessageUserContainerProps>`
       !$isChat &&
       css`
         flex-direction: column;
-        width: 100px;
+        width: auto;
         height: 100%;
+        padding: 1.2rem 1.5rem;
         span {
           font-size: 1.2rem;
         }

@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import Image from 'next/image';
 import { BREAKPOINT } from '@/app/_modules/common/constant/breakpoint';
+import Link from 'next/link';
 
 export const MovieDetailContainer = styled.div`
   width: 100%;
@@ -83,9 +84,17 @@ export const MovieDetailBottom = styled.div`
   flex-direction: column;
   gap: 1.8rem;
   font-weight: 600;
+  button {
+    width: 20rem;
+    margin-top: 1.5rem;
+  }
 
   @media (max-width: ${BREAKPOINT}px) {
     gap: 1.5rem;
+    button {
+      width: auto;
+      margin-top: 2rem;
+    }
   }
 `;
 
@@ -104,4 +113,11 @@ export const MovieDetailPopularity = styled.p`
 export const MovieDetailReleaseDate = styled.p`
   font-size: 1.5rem;
   line-height: 1.5;
+`;
+
+export const GoBackMovieList = styled(Link)`
+  margin-top: 3rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: #fff;
 `;
