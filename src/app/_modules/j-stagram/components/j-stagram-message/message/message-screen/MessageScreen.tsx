@@ -10,8 +10,56 @@ import MessageBubble from '../message-bubble/MessageBubble';
 import { useAtomValue } from 'jotai';
 import { presenceState, selectedChatUserIdState } from '@/app/store';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { getUserById, getAllMessages, sendMessage } from 'actions/messageActions';
+import { getUserById } from 'actions/messageActions';
 import { createBrowserSupabaseClient } from 'utils/supabase/client';
+import { handleError } from 'actions/actionUtils';
+
+export async function sendMessage({
+  message,
+  otherUserId,
+}: {
+  message: string;
+  otherUserId: string;
+}) {
+  const supabase = createBrowserSupabaseClient();
+
+  const { data, error } = await supabase.from('message').insert({
+    message,
+    receiver: otherUserId, // supabase 에서 sender 는 자동으로 현재 사용자로 등록됨
+  });
+
+  if (error) {
+    handleError(error);
+  }
+
+  return data;
+}
+
+export async function getAllMessages({ otherUserId }: { otherUserId: string }) {
+  const supabase = createBrowserSupabaseClient();
+  const {
+    data: { session },
+    error,
+  } = await supabase.auth.getSession();
+
+  if (error || !session.user) {
+    throw new Error('로그인 후 이용해주세요.');
+  }
+
+  const { data, error: getAllMessagesError } = await supabase
+    .from('message')
+    .select('*')
+    .or(`sender.eq.${session.user.id},sender.eq.${otherUserId}`)
+    .or(`receiver.eq.${session.user.id},receiver.eq.${otherUserId}`)
+    .order('created_at', { ascending: true });
+
+  if (getAllMessagesError) {
+    handleError(error);
+    return [];
+  }
+
+  return data;
+}
 
 const MessageScreen = () => {
   const [message, setMessage] = useState<string>('');
