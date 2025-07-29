@@ -105,7 +105,7 @@ const MessageScreen = () => {
   // 메시지가 변경될 때마다 스크롤을 맨 아래로 이동
   useEffect(() => {
     scrollToBottom();
-  }, [getAllMessagesQuery.data, scrollToBottom]);
+  }, [getAllMessagesQuery.data]);
 
   useEffect(() => {
     const channel = supabase

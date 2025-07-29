@@ -3,14 +3,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import * as S from './styled';
 
 interface CustomDatePickerProps {
-  id: string;
   selectedDate: Date | null;
   setSelectedDate: (date: Date | null) => void;
   disabled?: boolean;
 }
 
 const CustomDatePicker = ({
-  id,
   selectedDate,
   setSelectedDate,
   disabled = false,
