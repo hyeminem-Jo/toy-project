@@ -43,7 +43,7 @@ const TodoItem = ({
       onEditComplete?.(); // 편집 완료시 초기화
       queryClient.invalidateQueries({ queryKey: ['todos'] });
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       alert(error.message);
     },
   });
@@ -88,7 +88,6 @@ const TodoItem = ({
           isUnderline
           isLineThrough={isCompleted && !isEdit}
           isReadonly={!isEdit}
-          ref={inputRef}
         />
       </S.TodoListItemWrap>
       <S.TodoListItemWrap2>

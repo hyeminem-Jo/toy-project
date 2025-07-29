@@ -6,11 +6,6 @@ export const KaKaoButtonInner = styled.div`
   gap: 0.8rem;
   justify-content: space-between;
 
-  img {
-    width: 2rem;
-    height: 2rem;
-  }
-
   span {
     font-weight: 700;
   }

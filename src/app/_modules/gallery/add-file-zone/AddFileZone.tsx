@@ -33,30 +33,33 @@ const AddFileZone = () => {
     return result.data;
   };
 
-  const onDrop = useCallback(async (acceptedFiles: File[]) => {
-    if (isUploading) return;
+  const onDrop = useCallback(
+    async (acceptedFiles: File[]) => {
+      if (isUploading) return;
 
-    if (acceptedFiles.length > 0) {
-      const formData = new FormData();
+      if (acceptedFiles.length > 0) {
+        const formData = new FormData();
 
-      acceptedFiles.forEach((file) => {
-        const safeName = toSafeFileName(file.name);
-        const safeFile = new File([file], safeName, { type: file.type });
-        formData.append('file', safeFile);
-      });
+        acceptedFiles.forEach((file) => {
+          const safeName = toSafeFileName(file.name);
+          const safeFile = new File([file], safeName, { type: file.type });
+          formData.append('file', safeFile);
+        });
 
-      try {
-        setIsUploading(true);
-        const result = await handleUpload(formData);
-        queryClient.invalidateQueries({ queryKey: ['images'] });
-        console.log(result);
-      } catch (err) {
-        alert((err as Error).message);
-      } finally {
-        setIsUploading(false);
+        try {
+          setIsUploading(true);
+          const result = await handleUpload(formData);
+          queryClient.invalidateQueries({ queryKey: ['images'] });
+          console.log(result);
+        } catch (err) {
+          alert((err as Error).message);
+        } finally {
+          setIsUploading(false);
+        }
       }
-    }
-  }, []);
+    },
+    [isUploading],
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 

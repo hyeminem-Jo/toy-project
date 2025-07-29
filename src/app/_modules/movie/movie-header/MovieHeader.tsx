@@ -29,7 +29,7 @@ const MovieHeader = () => {
     return () => {
       clearTimeout(handler);
     };
-  }, [searchInput]);
+  }, [searchInput, setMovieSearch]);
 
   return (
     <S.MovieHeader>

@@ -2,7 +2,6 @@
 
 import React from 'react';
 import * as S from './styled';
-import Header from '@/app/_modules/common/components/header/Header';
 
 interface AppLayoutProps {
   children: React.ReactNode;

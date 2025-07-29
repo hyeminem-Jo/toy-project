@@ -1,6 +1,7 @@
 import Button from '@/app/_modules/common/components/button/button/Button';
 import * as S from './styled';
 import { createBrowserSupabaseClient } from 'utils/supabase/client';
+import Image from 'next/image';
 
 const KaKaoButton = () => {
   const supabase = createBrowserSupabaseClient();
@@ -30,7 +31,7 @@ const KaKaoButton = () => {
       type='button'
       text={
         <S.KaKaoButtonInner>
-          <img src='/assets/images/kakao-logo.png' alt='kakao' />
+          <Image src='/assets/images/kakao-logo.png' alt='kakao' width={20} height={20} />
           <span>카카오 로그인</span>
         </S.KaKaoButtonInner>
       }

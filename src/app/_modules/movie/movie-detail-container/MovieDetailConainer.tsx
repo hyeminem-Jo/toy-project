@@ -1,6 +1,5 @@
 'use client';
 
-import { useParams } from 'next/navigation';
 import StarIcon from '@mui/icons-material/Star';
 import * as S from './styled';
 import { Database } from 'types_db';

@@ -59,7 +59,7 @@ const MessageUserList = () => {
     return () => {
       channel.unsubscribe();
     };
-  }, [myInfo?.id]);
+  }, [myInfo?.id, setPresence, supabase]);
   // 의존성 배열에 myInfo?.id 가 없을 시 새로고침하면 채널 구독 해제(online_at 가 뜨지 x)
 
   return (

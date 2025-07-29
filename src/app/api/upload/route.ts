@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
   try {
     // console.log(Array.from(formData.entries()));
     const formData = await req.formData();
-    const files = Array.from(formData.entries()).map(([name, file]) => file as File);
+    const files = Array.from(formData.entries()).map(([, file]) => file as File);
 
     const result = await Promise.all(
       // 여러 파일 한 번에 업로드 처리
@@ -21,7 +21,8 @@ export async function POST(req: NextRequest) {
       }),
     );
     return NextResponse.json({ result });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || 'Unknown error' }, { status: 500 });
+  } catch (err: unknown) {
+    const error = err as Error;
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

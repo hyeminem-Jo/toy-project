@@ -2,8 +2,6 @@
 
 import React, { useState } from 'react';
 import * as S from './styled';
-import { useAtomValue } from 'jotai';
-import { userState } from '@/app/store';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createTodo, getTodos, TodoRow } from 'actions/todoActions';
 import Input from '@/app/_modules/common/components/form/input/Input';
@@ -37,12 +35,10 @@ const TodoContainer = () => {
       // ⬇️ 다른 페이지에서 쿼리 데이터 갱신시, queryClient 를 통해 캐시 데이터 갱신
       // queryClient.invalidateQueries({ queryKey: ['todos'] });
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       alert(error.message);
     },
   });
-
-  const user = useAtomValue(userState);
 
   return (
     <S.TodoContainer>
@@ -50,7 +46,6 @@ const TodoContainer = () => {
       <S.TodoContent>
         <Input
           id='todo-search'
-          label='할 일 검색'
           placeholder='할 일을 검색하세요.'
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}

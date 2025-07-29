@@ -105,7 +105,7 @@ const MessageScreen = () => {
   // 메시지가 변경될 때마다 스크롤을 맨 아래로 이동
   useEffect(() => {
     scrollToBottom();
-  }, [getAllMessagesQuery.data]);
+  }, [getAllMessagesQuery.data, scrollToBottom]);
 
   useEffect(() => {
     const channel = supabase
@@ -126,7 +126,7 @@ const MessageScreen = () => {
     return () => {
       channel.unsubscribe(); // MessageScreen 컴포넌트가 언마운트될 때 채널 구독 해제
     };
-  }, []);
+  }, [getAllMessagesQuery, supabase]);
 
   return (
     <S.MessageScreenContainer>
@@ -134,7 +134,7 @@ const MessageScreen = () => {
         <>
           <MessageUser
             user={selectedChatUserQuery.data}
-            onlineAt={presence?.[selectedChatUserQuery.data.id]?.[0]?.online_at}
+            onlineAt={(presence?.[selectedChatUserQuery.data.id]?.[0]?.online_at as string) || ''}
             isChat
           />
           <S.MessageScreenChat ref={chatContainerRef}>

@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { BREAKPOINT } from '@/app/_modules/common/constant/breakpoint';
 
 export const LoadingContainer = styled.div`
   display: flex;

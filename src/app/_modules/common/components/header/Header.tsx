@@ -5,7 +5,7 @@ import * as S from './styled';
 const Header = () => {
   return (
     <S.HeaderContainer>
-      <S.HeaderTitle>Hyejin's Project</S.HeaderTitle>
+      <S.HeaderTitle>Hyejin&apos;s Project</S.HeaderTitle>
     </S.HeaderContainer>
   );
 };
