@@ -25,6 +25,7 @@ export const MessageBubble = styled.div<MessageBubbleContainerProps>`
   word-break: break-all;
   padding: 1rem;
   border-radius: 1rem;
+  font-size: 1.8rem;
   font-weight: 500;
   line-height: 1.2;
   background-color: ${({ $isMe }) => ($isMe ? 'dodgerblue' : '#f0f0f0')};
@@ -37,5 +38,6 @@ export const MessageBubble = styled.div<MessageBubbleContainerProps>`
 
   @media (max-width: ${BREAKPOINT_SM}px) {
     max-width: 200px;
+    font-size: 1.6rem;
   }
 `;
