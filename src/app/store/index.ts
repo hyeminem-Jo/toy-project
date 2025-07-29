@@ -1,11 +1,5 @@
 import { atom } from 'jotai';
-import { MyInfo, User } from '@/app/types/commonType';
-
-export const userState = atom<User>({
-  id: null,
-  name: '',
-  email: '',
-});
+import { MyInfo } from '@/app/types/commonType';
 
 export const myInfoState = atom<MyInfo>({
   id: '',

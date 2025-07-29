@@ -1,11 +1,11 @@
 'use client';
 
+import { MyInfo } from '@/app/types/commonType';
 import * as S from './styled';
 import Image from 'next/image';
-import { User } from '@supabase/supabase-js';
 
 interface UserProfileImageProps {
-  user: User;
+  user: MyInfo;
   size?: number;
   mobileSize?: number;
 }

@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getAllUserList } from 'actions/messageActions';
 import { myInfoState, presenceState } from '@/app/store';
 import { useEffect } from 'react';
+import { MyInfo } from '@/app/types/commonType';
 
 const MessageUserList = () => {
   const supabase = createBrowserSupabaseClient();
@@ -68,7 +69,7 @@ const MessageUserList = () => {
         {filteredUsers.map((user) => (
           <MessageUser
             key={user.id}
-            user={user}
+            user={user as unknown as MyInfo}
             onClick={() => setSelectedUserId(user.id)}
             active={selectedUserId === user.id}
             onlineAt={(() => {

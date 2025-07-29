@@ -13,6 +13,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { getUserById } from 'actions/messageActions';
 import { createBrowserSupabaseClient } from 'utils/supabase/client';
 import { handleError } from 'actions/actionUtils';
+import { MyInfo } from '@/app/types/commonType';
 
 export async function sendMessage({
   message,
@@ -144,7 +145,7 @@ const MessageScreen = () => {
       {selectedChatUserQuery.data ? (
         <>
           <MessageUser
-            user={selectedChatUserQuery.data}
+            user={selectedChatUserQuery.data as unknown as MyInfo}
             onlineAt={(() => {
               const userPresence = presence?.[selectedChatUserQuery.data.id];
               return Array.isArray(userPresence) && userPresence.length > 0

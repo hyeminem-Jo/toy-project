@@ -3,11 +3,11 @@
 import DateUtil from '@/app/_modules/common/utils/dateUtil';
 
 import * as S from './styled';
-import { User } from '@supabase/supabase-js';
 import UserProfileImage from '@/app/_modules/common/components/user-profile-image/UserProfileImage';
+import { MyInfo } from '@/app/types/commonType';
 
 interface MessageUserProps {
-  user: User;
+  user: MyInfo;
   onlineAt?: string;
   isChat?: boolean;
   active?: boolean;

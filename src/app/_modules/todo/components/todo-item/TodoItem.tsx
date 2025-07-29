@@ -94,7 +94,6 @@ const TodoItem = ({
         <S.TodoListItemWrapDate>
           <S.TodoListItemWrapText>⏰ 마감일:</S.TodoListItemWrapText>{' '}
           <CustomDatePicker
-            id={`todo-item-date-${index}`}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
             disabled={updateTodoMutation.isPending || !isEdit}
