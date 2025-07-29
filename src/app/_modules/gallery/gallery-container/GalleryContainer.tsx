@@ -24,7 +24,6 @@ const GalleryContainer = () => {
         <S.GalleryContent>
           <Input
             id='todo-search'
-            label='이미지 검색'
             placeholder='이미지를 검색하세요.'
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
