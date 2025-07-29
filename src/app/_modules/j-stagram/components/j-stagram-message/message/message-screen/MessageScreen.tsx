@@ -152,6 +152,7 @@ const MessageScreen = () => {
                 ? userPresence[0]?.online_at || ''
                 : '';
             })()}
+            // onlineAt={presence?.[selectedChatUserQuery.data.id]?.[0]?.online_at || ''}
             isChat
           />
           <S.MessageScreenChat ref={chatContainerRef}>

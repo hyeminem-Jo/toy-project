@@ -40,27 +40,29 @@ const MessageUserList = () => {
       const newState = channel.presenceState();
       const newStateObj = JSON.parse(JSON.stringify(newState));
       setPresence(newStateObj);
-      // console.log('Channel data:', newStateObj);
+      console.log('Channel data:', newStateObj);
     });
 
     channel.subscribe(async (status) => {
-      // console.log('채널 구독 상태:', status);
+      console.log('채널 구독 상태:', status);
 
       if (status !== 'SUBSCRIBED') return;
 
-      // const newPresenceStatus = await channel.track({
-      //   // user: myInfo?.id,
-      //   online_at: new Date().toISOString(),
-      // });
+      const newPresenceStatus = await channel.track({
+        // user: myInfo?.id,
+        online_at: new Date().toISOString(),
+      });
 
-      // console.log('New presence status:', newPresenceStatus); // 트래킹 성공 여부
-      // console.log('현재 사용자가 온라인으로 등록됨:', newPresenceStatus === 'ok');
+      console.log('New presence status:', newPresenceStatus); // 트래킹 성공 여부
+      console.log('현재 사용자가 온라인으로 등록됨:', newPresenceStatus === 'ok');
     });
 
     return () => {
       channel.unsubscribe();
     };
-  }, [myInfo?.id, setPresence, supabase]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [myInfo?.id]);
+  // }, [myInfo?.id, setPresence, supabase]);
   // 의존성 배열에 myInfo?.id 가 없을 시 새로고침하면 채널 구독 해제(online_at 가 뜨지 x)
 
   return (
@@ -78,6 +80,7 @@ const MessageUserList = () => {
                 ? userPresence[0]?.online_at || ''
                 : '';
             })()}
+            // onlineAt={presence?.[user.id]?.[0]?.online_at || ''}
           />
         ))}
       </S.MessageUserList>
