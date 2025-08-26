@@ -30,6 +30,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 - 할 일 등록/수정/삭제 기능
 - 할 일 여부 체크 기능
+- 할 일 검색 기능
 - 이미 체크된 할 일의 경우 아래로 정렬, 할 일 생성일 기준으로 오름차순 정렬 되도록 구현
   
   <img width="1051" height="303" alt="image" src="https://github.com/user-attachments/assets/c9243881-f828-4412-87da-c0c13f8ddd3f" />
@@ -102,12 +103,13 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
   <img width="1032" height="105" alt="image" src="https://github.com/user-attachments/assets/4eb80f9c-a76f-4574-9081-a4bc2636135c" />
 
 <br>
+<br>
 
 ---
 
 ## 2. 인스타그램 클론 (J-Stagram)
 
->로그인 구현 및 사용자 정보 확인, 회원끼리 실시간 채팅을 할 수 있는 기능을 구현하였습니다. [링크](https://hyejin-toy-project.vercel.app/j-stagram)
+>회원가입 및 로그인 구현, 사용자 정보 확인, 회원끼리 실시간 채팅을 할 수 있는 기능을 구현하였습니다. [링크](https://hyejin-toy-project.vercel.app/j-stagram)
 
 <img width="925" height="496" alt="image" src="https://github.com/user-attachments/assets/346fb9e9-ddf8-4a48-af23-91b23299a09c" />
 
@@ -118,26 +120,125 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 ### 주요 기능
 
 - Supabase Auth 를 활용하여 일반 로그인 및 카카오 소셜 로그인 기능 구현
-  - 일반 로그인의 경우 이메일로 OTP 번호를 받아 인증하는 방식으로 진행 (** supabase 의 무료 버전이라 이메일 인증 횟수 제한이 있음)
+  - 일반 회원가입의 경우 이메일로 OTP 번호를 받아 인증하는 방식으로 진행 (** supabase 의 무료 버전이라 이메일 인증 횟수 제한이 있음)
+  - `react-hook-form` 과 `zod` 를 사용하여 typescript 에 최적화된 폼 유효성 검증 구현
+
+  ```
+    const signInMutation = useMutation({
+    mutationFn: async (formData: z.infer<typeof schema>) => {
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (data) {
+        console.log(data, '로그인 성공');
+      }
+
+      if (error) {
+        if (error.message === 'Invalid login credentials') {
+          alert('이메일 또는 비밀번호가 올바르지 않습니다.');
+        } else {
+          alert(error.message);
+        }
+        throw new Error(error.message);
+      }
+    },
+  });
+  ```
 
   <img width="923" height="491" alt="image" src="https://github.com/user-attachments/assets/f5dae3d0-42fc-4df6-b752-d304327ac7b0" />
 
 
-  - 카카오 소셜 로그인
+  - signInWithOAuth 를 활용한 카카오 소셜 로그인
+ 
+    
+    ```
+      const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'kakao',
+      options: {
+        redirectTo: process.env.NEXT_PUBLIC_VERCEL_URL
+          ? `${process.env.NEXT_PUBLIC_VERCEL_URL}api/auth/callback`
+          : 'http://localhost:3000/api/auth/callback',
+      },
+    });
+    ```
     
     <img width="734" height="456" alt="image" src="https://github.com/user-attachments/assets/bd90be3f-eade-4aa0-8799-1eec0e11208b" />
 
-
 - Supabase 의 RealTime 기능을 활용하여 가입된 상대방과 실시간으로 채팅할 수 있도록 구현
   ![Image](https://github.com/user-attachments/assets/c0cefed7-2a1a-44a0-b4f6-b1d26c8a4116)
+
+  ```
+  export async function sendMessage({
+  message,
+  otherUserId,
+  }: {
+    message: string;
+    otherUserId: string;
+  }) {
+    const supabase = createBrowserSupabaseClient();
+  
+    const { data, error } = await supabase.from('message').insert({
+      message,
+      receiver: otherUserId,
+    });
+  
+    if (error) {
+      handleError(error);
+    }
+  
+    return data;
+  }
+    
+  const sendMessageMutation = useMutation({
+    mutationFn: async () => {
+      await sendMessage({ message, otherUserId: selectedChatUserId });
+    },
+    onSuccess: () => {
+      setMessage('');
+      getAllMessagesQuery.refetch();
+      inputRef.current?.focus();
+    },
+  });
+  ```
 
 - 비밀번호를 한 번 더 확인하는 유효성 검증 구현
   
     <img width="364" height="197" alt="image" src="https://github.com/user-attachments/assets/112b590f-0f60-42c8-9cec-2a83c629ede8" />
 
+- 사용자의 상세 정보 표시
+
+  <br>
+  <br>
 
 ---
 
+## 3. 파일 업로드 (Gallery)
+>Supabase 의 Storage 기능을 활용해 파일을 업로드 및 삭제할 수 있는 기능을 구현했습니다. [링크](https://hyejin-toy-project.vercel.app/gallery)
+
+<img width="1357" height="764" alt="image" src="https://github.com/user-attachments/assets/a42592d0-3ea5-4902-ba4c-7bad04a3c7e5" />
+
+
+<br>
+<br>
+
+### 주요 기능
+
+- 업로드 창이 열려 이미지를 선택하거나, 혹은 드래그하여 이미지를 업로드하는 기능 (여러 이미지 업로드 가능)
+
+  <img width="745" height="454" alt="image" src="https://github.com/user-attachments/assets/a76e324a-2d29-464a-a09d-325115ce3763" />
+
+    
+- 업로드된 이미지 삭제 기능
+
+  <img width="235" height="286" alt="image" src="https://github.com/user-attachments/assets/9cfff327-3d65-40f9-887a-c6d489cb1313" />
+
+  
+- 이미지 이름 검색 기능
+
+<br>
+<br>
 
 ## 문제 해결 및 성능 개선
 
