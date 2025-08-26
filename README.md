@@ -117,16 +117,14 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 ### 주요 기능
 
 - Supabase Auth 를 활용하여 OTP 일반 로그인 및 카카오 소셜 로그인 기능
+  
     <img width="374" height="639" alt="image" src="https://github.com/user-attachments/assets/5d65fbe8-f61f-422a-8e53-ac401ed1e3fc" />
 
 - Supabase 의 RealTime 기능을 활용하여 가입된 상대방과 실시간으로 채팅할 수 있도록 구현
-
-
----
-
-
+  ![Image](https://github.com/user-attachments/assets/c0cefed7-2a1a-44a0-b4f6-b1d26c8a4116)
 
 ---
+
 
 ## 문제 해결 및 성능 개선
 
