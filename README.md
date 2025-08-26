@@ -28,10 +28,9 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 ### 주요 기능
 
-- 할 일 등록/수정/삭제 기능
-- 할 일 여부 체크 기능
-- 할 일 검색 기능
-- 이미 체크된 할 일의 경우 아래로 정렬, 할 일 생성일 기준으로 오름차순 정렬 되도록 구현
+- 할 일 등록/수정/삭제가 가능하며, 완료 여부를 체크할 수 있도록 구현하였습니다.
+- 할 일을 검색하는 기능을 구현하였습니다.
+- 이미 체크된 할 일의 경우 아래로 정렬, 할 일 생성일 기준으로 오름차순 정렬 되도록 구현하였습니다.
   
   <img width="1051" height="303" alt="image" src="https://github.com/user-attachments/assets/c9243881-f828-4412-87da-c0c13f8ddd3f" />
 
@@ -50,7 +49,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
       return data;
     }
   ```
-- 마감일도 있으면 좋겠다는 생각으로 DatePicker 라는 라이브러리를 사용, 따로 다른 페이지에서도 사용하기 유용하게 커스텀 컴포넌트로 제작
+- 마감일도 있으면 좋겠다는 생각으로 DatePicker 라는 라이브러리를 사용, 따로 다른 페이지에서도 사용하기 유용하게 커스텀 컴포넌트로 제작하였습니다.
   
   <img width="405" height="369" alt="image" src="https://github.com/user-attachments/assets/a2e3fb25-8fb0-41ab-ae57-eb5992f36e5e" />
 
@@ -100,7 +99,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
     export default CustomDatePicker;
     
     ```
-- 새로 생성된 할 일인 경우 자동으로 편집 모드 구현
+- 새로 생성된 할 일인 경우 자동으로 편집 모드가 될 수 있도록 구현하였습니다.
   <img width="1032" height="105" alt="image" src="https://github.com/user-attachments/assets/4eb80f9c-a76f-4574-9081-a4bc2636135c" />
 
 <br>
@@ -120,9 +119,9 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 ### 주요 기능
 
-- Supabase Auth 를 활용하여 일반 로그인 및 카카오 소셜 로그인 기능 구현
+- Supabase Auth 를 활용하여 일반 로그인 및 카카오 소셜 로그인 기능을 구현하였습니다.
   - 일반 회원가입의 경우 이메일로 OTP 번호를 받아 인증하는 방식으로 진행 (** supabase 의 무료 버전이라 이메일 인증 횟수 제한이 있음)
-  - `react-hook-form` 과 `zod` 를 사용하여 typescript 에 최적화된 폼 유효성 검증 구현
+  - `react-hook-form` 과 `zod` 를 사용하여 typescript 에 최적화된 폼 유효성 검증을 구현하였습니다.
 
   ```
     const signInMutation = useMutation({
@@ -151,7 +150,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
   <img width="923" height="491" alt="image" src="https://github.com/user-attachments/assets/f5dae3d0-42fc-4df6-b752-d304327ac7b0" />
 
 
-  - signInWithOAuth 를 활용한 카카오 소셜 로그인
+  - signInWithOAuth 를 활용한 카카오 소셜 로그인입니다.
  
     
     ```
@@ -167,8 +166,8 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
     
     <img width="734" height="456" alt="image" src="https://github.com/user-attachments/assets/bd90be3f-eade-4aa0-8799-1eec0e11208b" />
 
-- Supabase 의 RealTime 기능을 활용하여 가입된 상대방과 실시간으로 채팅할 수 있도록 구현
-  - 직접 회원가입한 지인들과 채팅을 나눠보며, UX 관련 불편했던 부분을 피드백받아 발전시킴
+- Supabase 의 RealTime 기능을 활용하여 가입된 상대방과 실시간으로 채팅할 수 있도록 구현하였습니다.
+  - 직접 회원가입한 지인들과 채팅을 나눠보며, UX 관련 불편했던 부분을 피드백받아 발전시켰습니다.
 
  <br>
     
@@ -208,11 +207,11 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
   });
   ```
 
-- 비밀번호를 한 번 더 확인하는 유효성 검증 구현
+- 아이디, 비밀번호와 함께 비밀번호를 한 번 더 확인하는 유효성 검증을 구현하였습니다.
   
     <img width="364" height="197" alt="image" src="https://github.com/user-attachments/assets/112b590f-0f60-42c8-9cec-2a83c629ede8" />
 
-- 사용자의 상세 정보 표시
+- 사용자의 상세 정보를 알 수 있도록 표시하였습니다.
 
   <br>
   <br>
@@ -230,7 +229,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 ### 주요 기능
 
-- 업로드 창이 열려 이미지를 선택, react-dropzone 를 활용하여 드래그하여 이미지를 업로드하는 기능 구현 (여러 이미지 업로드 가능)
+- 업로드 창이 열려 이미지를 선택, react-dropzone 를 활용하여 드래그하여 이미지를 업로드하는 기능을 구현하였습니다. (여러 이미지 업로드 가능)
 
   <img width="745" height="454" alt="image" src="https://github.com/user-attachments/assets/a76e324a-2d29-464a-a09d-325115ce3763" />
 
@@ -247,27 +246,27 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 ```
     
-- 업로드된 이미지 삭제 기능
+- 이미지 호버시 업로드된 이미지를 삭제할 수 있습니다.
 
   <img width="235" height="286" alt="image" src="https://github.com/user-attachments/assets/9cfff327-3d65-40f9-887a-c6d489cb1313" />
 
   
-- 이미지 이름 검색 기능
-- 이미지가 업로드될 때 파일명이 한글일 경우 변환 후 타임스탬프 추가 (파일 이름이 인식안되는 이슈)
+- 이미지 이름을 검색하는 기능을 구현하였습니다.
+  - 파일 이름이 인식안되는 이슈가 있어 이미지가 업로드될 때 파일명이 한글일 경우 변환 후 타임스탬프를 추가하였습니다.
 
-  ```
-    const toSafeFileName = (name: string) => {
-    const ext = name.includes('.') ? '.' + name.split('.').pop() : '';
-    const base = name.replace(/\.[^/.]+$/, '');
-    // 파일명이 이미 안전한 형식인지 체크
-    if (/^[a-zA-Z0-9-_]+$/.test(base)) {
-      return name;
-    }
-    const safeBase = base.replace(/[^a-zA-Z0-9-_]/g, '_');
-    const timestamp = Date.now();
-    return `${safeBase}_${timestamp}${ext}`;
-  };
-  ```
+    ```
+      const toSafeFileName = (name: string) => {
+      const ext = name.includes('.') ? '.' + name.split('.').pop() : '';
+      const base = name.replace(/\.[^/.]+$/, '');
+      // 파일명이 이미 안전한 형식인지 체크
+      if (/^[a-zA-Z0-9-_]+$/.test(base)) {
+        return name;
+      }
+      const safeBase = base.replace(/[^a-zA-Z0-9-_]/g, '_');
+      const timestamp = Date.now();
+      return `${safeBase}_${timestamp}${ext}`;
+    };
+    ```
 
 <br>
 <br>
@@ -287,7 +286,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 ### 주요 기능
 
-- React-Query 의 useInfiniteQuery 와 useInView 를 활용하여, 스크롤이 밑에 다다르면 추가적으로 영화 목록이 생기도록 인피니트 스크롤 구현
+- React-Query 의 useInfiniteQuery 와 useInView 를 활용하여, 스크롤이 밑에 다다르면 추가적으로 영화 목록이 생기도록 인피니트 스크롤을 구현하였습니다.
 
   ```
     const movieSearch = useAtomValue(movieSearchState);
@@ -316,7 +315,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
   
     
-- 동적 라우팅을 활용하여 영화 상세페이지 구현
+- 동적 라우팅을 활용하여 영화 상세페이지를 구현하였습니다.
 
   <img width="693" height="475" alt="image" src="https://github.com/user-attachments/assets/3ee65df2-820d-42df-8739-eb2ff9c13234" />
 
@@ -325,7 +324,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 
   
-- 영화 이름 검색 기능
+- 영화를 제목으로 검색할 수 있도록 구현하였습니다.
 
 <br>
 <br>
