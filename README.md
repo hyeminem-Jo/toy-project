@@ -1,7 +1,10 @@
-# Toy Project
+# Toy Project (리드미 작성중)
 
 >여러 최신 스택들을 활용하여 토이 프로젝트를 구현하였습니다. 
 나의 할 일 / 인스타그램 클론 / 넷플릭스 클론 / 파일 업로드 기능을 담고 있습니다.
+
+
+[배포 링크](https://hyejin-portfolio.vercel.app/)
 
 <br>
 
@@ -16,12 +19,91 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 <br>
 
-## 주요 기능
-
-### 1. 할 일(Todo-list)
-오늘의 할 일을 체크할 수 있는 체크 리스트입니다. 로컬스토리지에 할 일의 정보가 기록되어 새로고침을 해도 정보가 그대로 남을 수 있습니다.
+## 1. 나의 할 일(Todo-list)
+>가장 기초적인 CRUD 를 구현하기에 적합한 투두리스트를 구현하였습니다. [링크](https://hyejin-portfolio.vercel.app/)
 
 <img width="1358" height="619" alt="image" src="https://github.com/user-attachments/assets/90ea9a76-a838-4c69-ae36-729e526d3e33" />
+
+<br>
+<br>
+
+### 주요 기능
+
+- 할 일 등록/수정/삭제 기능
+- 할 일 여부 체크 기능
+- 이미 체크된 할 일의 경우 아래로 정렬, 할 일 생성일 기준으로 오름차순 정렬 되도록 구현
+  
+  <img width="1051" height="303" alt="image" src="https://github.com/user-attachments/assets/c9243881-f828-4412-87da-c0c13f8ddd3f" />
+
+
+  ```
+    export async function getTodos({ searchInput = '' }): Promise<TodoRow[]> {
+      const supabase = await createServerSupabaseClient();
+      const { data, error } = await supabase
+        .from('todo')
+        .select('*')
+        .like('title', `%${searchInput}%`)
+        .order('completed', { ascending: true }) // completed false 를 위로, true 를 아래로 정렬
+        .order('created_at', { ascending: true }); // 각 그룹 내에서 생성일 기준 오름차순 정렬
+    
+      if (error) handleError(error);
+      return data;
+    }
+  ```
+- 마감일도 있으면 좋겠다는 생각으로 DatePicker 라는 라이브러리를 사용, 따로 다른 페이지에서도 사용하기 유용하게 커스텀 컴포넌트로 제작
+  <img width="405" height="369" alt="image" src="https://github.com/user-attachments/assets/a2e3fb25-8fb0-41ab-ae57-eb5992f36e5e" />
+
+
+    ```
+    <S.TodoListItemWrapDate>
+      <S.TodoListItemWrapText>⏰ 마감일:</S.TodoListItemWrapText>{' '}
+      <CustomDatePicker
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+        disabled={updateTodoMutation.isPending || !isEdit}
+      />
+    </S.TodoListItemWrapDate>
+    ```
+      
+    ```
+    import DatePicker from 'react-datepicker';
+    import 'react-datepicker/dist/react-datepicker.css';
+    import * as S from './styled';
+    
+    interface CustomDatePickerProps {
+      selectedDate: Date | null;
+      setSelectedDate: (date: Date | null) => void;
+      disabled?: boolean;
+    }
+    
+    const CustomDatePicker = ({
+      selectedDate,
+      setSelectedDate,
+      disabled = false,
+    }: CustomDatePickerProps) => {
+      return (
+        <S.DatePickerWrapper $disabled={disabled}>
+          <DatePicker
+            dateFormat='yyyy.MM.dd'
+            shouldCloseOnSelect
+            minDate={new Date()}
+            selected={selectedDate}
+            onChange={(date: Date | null) => setSelectedDate(date)}
+            placeholderText='기한 없음'
+            disabled={disabled}
+          />
+        </S.DatePickerWrapper>
+      );
+    };
+    
+    export default CustomDatePicker;
+    
+    ```
+- 등록/수정/삭제 되는 동안 로띠를 활용하여 버튼 기능 disabled 처리
+- 새로 생성된 할 일인 경우 자동으로 편집 모드 구현
+  <img width="1032" height="105" alt="image" src="https://github.com/user-attachments/assets/4eb80f9c-a76f-4574-9081-a4bc2636135c" />
+
+<br>
 
 ---
 
