@@ -51,6 +51,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
     }
   ```
 - 마감일도 있으면 좋겠다는 생각으로 DatePicker 라는 라이브러리를 사용, 따로 다른 페이지에서도 사용하기 유용하게 커스텀 컴포넌트로 제작
+  
   <img width="405" height="369" alt="image" src="https://github.com/user-attachments/assets/a2e3fb25-8fb0-41ab-ae57-eb5992f36e5e" />
 
 
