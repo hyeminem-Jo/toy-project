@@ -168,6 +168,10 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
     <img width="734" height="456" alt="image" src="https://github.com/user-attachments/assets/bd90be3f-eade-4aa0-8799-1eec0e11208b" />
 
 - Supabase 의 RealTime 기능을 활용하여 가입된 상대방과 실시간으로 채팅할 수 있도록 구현
+  - 직접 회원가입한 지인들과 채팅을 나눠보며, UX 관련 불편했던 부분을 피드백받아 발전시킴
+
+ <br>
+    
   ![Image](https://github.com/user-attachments/assets/c0cefed7-2a1a-44a0-b4f6-b1d26c8a4116)
 
   ```
