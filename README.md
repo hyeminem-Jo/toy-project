@@ -109,16 +109,21 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 >로그인 구현 및 사용자 정보 확인, 회원끼리 실시간 채팅을 할 수 있는 기능을 구현하였습니다. [링크](https://hyejin-toy-project.vercel.app/j-stagram)
 
-<img width="1358" height="619" alt="image" src="https://github.com/user-attachments/assets/90ea9a76-a838-4c69-ae36-729e526d3e33" />
+<img width="925" height="496" alt="image" src="https://github.com/user-attachments/assets/346fb9e9-ddf8-4a48-af23-91b23299a09c" />
+
 
 <br>
 <br>
 
 ### 주요 기능
 
-- Supabase Auth 를 활용하여 OTP 일반 로그인 및 카카오 소셜 로그인 기능
-  
-    <img width="374" height="639" alt="image" src="https://github.com/user-attachments/assets/5d65fbe8-f61f-422a-8e53-ac401ed1e3fc" />
+- Supabase Auth 를 활용하여 일반 로그인 및 카카오 소셜 로그인 기능 구현
+  - 일반 로그인의 경우 OTP 번호를 받아 인증하는 방식으로 진행
+    
+
+  - 카카오 로그인
+    <img width="734" height="456" alt="image" src="https://github.com/user-attachments/assets/bd90be3f-eade-4aa0-8799-1eec0e11208b" />
+
 
 - Supabase 의 RealTime 기능을 활용하여 가입된 상대방과 실시간으로 채팅할 수 있도록 구현
   ![Image](https://github.com/user-attachments/assets/c0cefed7-2a1a-44a0-b4f6-b1d26c8a4116)
