@@ -9,7 +9,7 @@
 
 ### 사용된 기술
 `Next.js` `Typescript` `Jotai` `React-query` `Emotion` `Supabase`
-- App Router 기반으로 라우팅이 자동화 되어있다는 점, SSR 및 CSR 을 분리하여 적용할 수 있다는 점, 그리고 API Routes 를 통해 간단한 서버 API 를 바로 생성할 수 있다는 점에서 Next.js 를 사용하게 되었습니다.
+- App Router 기반으로 라우팅이 자동화 되어있다는 점과 SSR 및 CSR 을 분리하여 적용할 수 있다는 점, 그리고 API Routes 를 통해 간단한 서버 API 를 바로 생성할 수 있다는 점에서 Next.js 를 사용하게 되었습니다.
 - 간단한 중앙데이터 관리를 위해 Recoil 을 사용하려 하였으나, 개발자 지원 중단 및 React 18 버전과의 이슈 등으로 인해 그와 매우 유사한 구조를 가진 Jotai 를 사용하였습니다.
 - 데이터 패칭과 인피니트 스크롤링에 있어 가장 최적화된 라이브러리인 React-query 를 사용하였습니다.
 - 간단한 CRUD 의 백엔드 환경을 조성하기 위해 supabase 를 활용하였습니다. 
@@ -107,7 +107,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 ## 2. 인스타그램 클론 (J-Stagram)
 
->가장 기초적인 CRUD 를 구현하기에 적합한 투두리스트를 구현하였습니다. [링크](https://hyejin-toy-project.vercel.app/j-stagram)
+>로그인 구현 및 사용자 정보 확인, 회원끼리 실시간 채팅을 할 수 있는 기능을 구현하였습니다. [링크](https://hyejin-toy-project.vercel.app/j-stagram)
 
 <img width="1358" height="619" alt="image" src="https://github.com/user-attachments/assets/90ea9a76-a838-4c69-ae36-729e526d3e33" />
 
@@ -116,17 +116,14 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 ### 주요 기능
 
-- 할 일 등록/수정/삭제 기능
-- 할 일 여부 체크 기능
-- 이미 체크된 할 일의 경우 아래로 정렬, 할 일 생성일 기준으로 오름차순 정렬 되도록 구현
+- Supabase Auth 를 활용하여 OTP 일반 로그인 및 카카오 소셜 로그인 기능
+    <img width="374" height="639" alt="image" src="https://github.com/user-attachments/assets/5d65fbe8-f61f-422a-8e53-ac401ed1e3fc" />
+
+- Supabase 의 RealTime 기능을 활용하여 가입된 상대방과 실시간으로 채팅할 수 있도록 구현
+
 
 ---
 
-### 3. 계산기
-
-사칙연산을 할 수 있는 계산기 입니다. 
-
-![image](https://user-images.githubusercontent.com/83049523/169800523-5595c115-2ccc-47cf-bb06-c21ac5b3a244.png)
 
 
 ---
