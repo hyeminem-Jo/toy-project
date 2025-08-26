@@ -226,10 +226,22 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 ### 주요 기능
 
-- 업로드 창이 열려 이미지를 선택하거나, 혹은 드래그하여 이미지를 업로드하는 기능 (여러 이미지 업로드 가능)
+- 업로드 창이 열려 이미지를 선택, react-dropzone 를 활용하여 드래그하여 이미지를 업로드하는 기능 구현 (여러 이미지 업로드 가능)
 
   <img width="745" height="454" alt="image" src="https://github.com/user-attachments/assets/a76e324a-2d29-464a-a09d-325115ce3763" />
 
+```
+  const handleUpload = async (formData: FormData) => {
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+    const result = await res.json();
+    if (!res.ok) throw new Error(result.error || 'Upload failed');
+    return result.data;
+  };
+
+```
     
 - 업로드된 이미지 삭제 기능
 
@@ -237,6 +249,21 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
   
 - 이미지 이름 검색 기능
+- 이미지가 업로드될 때 파일명이 한글일 경우 변환 후 타임스탬프 추가 (파일 이름이 인식안되는 이슈)
+
+  ```
+    const toSafeFileName = (name: string) => {
+    const ext = name.includes('.') ? '.' + name.split('.').pop() : '';
+    const base = name.replace(/\.[^/.]+$/, '');
+    // 파일명이 이미 안전한 형식인지 체크
+    if (/^[a-zA-Z0-9-_]+$/.test(base)) {
+      return name;
+    }
+    const safeBase = base.replace(/[^a-zA-Z0-9-_]/g, '_');
+    const timestamp = Date.now();
+    return `${safeBase}_${timestamp}${ext}`;
+  };
+  ```
 
 <br>
 <br>
@@ -256,7 +283,34 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 ### 주요 기능
 
-- React-Query 의 useInfiniteQuery 를 활용하여, 스크롤이 밑에 다다르면 추가적으로 영화 목록이 생기도록 인피니트 스크롤 구현
+- React-Query 의 useInfiniteQuery 와 useInView 를 활용하여, 스크롤이 밑에 다다르면 추가적으로 영화 목록이 생기도록 인피니트 스크롤 구현
+
+  ```
+    const movieSearch = useAtomValue(movieSearchState);
+
+    const { data, fetchNextPage, hasNextPage, isFetching, isFetchingNextPage } = useInfiniteQuery({
+      initialPageParam: 1,
+      queryKey: ['movie', movieSearch],
+      queryFn: ({ pageParam }) => searchMovies(movieSearch, pageParam, 12),
+      getNextPageParam: (lastPage) => {
+        return lastPage.page ? lastPage.page + 1 : null;
+      },
+    });
+  
+    const { ref, inView } = useInView({
+      threshold: 0,
+    });
+  
+    useEffect(() => {
+      if (inView && hasNextPage && !isFetchingNextPage && !isFetching) {
+        fetchNextPage();
+      }
+    }, [inView, hasNextPage, fetchNextPage]);
+  ```
+
+  <img width="1197" height="662" alt="image" src="https://github.com/user-attachments/assets/db0bb4a5-f21f-439f-87ce-a8d3a5a4090a" />
+
+  
     
 - 동적 라우팅을 활용하여 영화 상세페이지 구현
 
@@ -285,6 +339,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 4. 파일 업로드
    - 서버액션에서 실행한 Form Data 형식의 데이터 요청에 이슈가 생겨 API Router 를 통해 클라이언트 요청하여 해결
    - 파일이 업로드되는 동안 클릭 및 드래그 기능을 막아 중복 요청을 방지
+   - 파일명이 한글일 경우 파일 인식이 안되는 이슈를 위해 정규표현식을 활용하여 파일명 변환
 
 <br>
 <br>
