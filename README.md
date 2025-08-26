@@ -1,10 +1,9 @@
 # Toy Project (리드미 작성중)
 
 >여러 최신 스택들을 활용하여 토이 프로젝트를 구현하였습니다. 
-나의 할 일 / 인스타그램 클론 / 넷플릭스 클론 / 파일 업로드 기능을 담고 있습니다.
+나의 할 일 / 인스타그램 클론 / 넷플릭스 클론 / 파일 업로드 기능을 담고 있으며,
+모바일 웹 환경을 고려하여 작업하였습니다.
 
-
-[배포 링크](https://hyejin-portfolio.vercel.app/)
 
 <br>
 
@@ -20,7 +19,7 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 <br>
 
 ## 1. 나의 할 일(Todo-list)
->가장 기초적인 CRUD 를 구현하기에 적합한 투두리스트를 구현하였습니다. [링크](https://hyejin-portfolio.vercel.app/)
+>가장 기초적인 CRUD 를 구현하기에 적합한 투두리스트를 구현하였습니다. [링크](https://hyejin-toy-project.vercel.app/todo)
 
 <img width="1358" height="619" alt="image" src="https://github.com/user-attachments/assets/90ea9a76-a838-4c69-ae36-729e526d3e33" />
 
@@ -106,12 +105,20 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 ---
 
-### 2. 그림 일기
+## 2. 인스타그램 클론 (J-Stagram)
 
-canvas 의 2D 그래픽을 이용하여 그림판을 구현했습니다.
-여러 가지 색상을 선택하여 그림을 그리거나 바탕색을 칠할 수 있으며 선의 굵기도 조절할 수 있습니다. 
+>가장 기초적인 CRUD 를 구현하기에 적합한 투두리스트를 구현하였습니다. [링크](https://hyejin-toy-project.vercel.app/j-stagram)
 
-![image](https://user-images.githubusercontent.com/83049523/169799601-11ebf5a0-5f4a-49b9-b7eb-8cf8eb547f48.png)
+<img width="1358" height="619" alt="image" src="https://github.com/user-attachments/assets/90ea9a76-a838-4c69-ae36-729e526d3e33" />
+
+<br>
+<br>
+
+### 주요 기능
+
+- 할 일 등록/수정/삭제 기능
+- 할 일 여부 체크 기능
+- 이미 체크된 할 일의 경우 아래로 정렬, 할 일 생성일 기준으로 오름차순 정렬 되도록 구현
 
 ---
 
