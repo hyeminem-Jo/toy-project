@@ -1,45 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with
-[`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 나의 할 일 / 인스타그램 클론 / 넷플릭스 클론 / 파일 업로드 기능을 담은 토이프로젝트입니다 (작성중입니다)
+> 나의 하루 일상을 관리하는 일상 관리 어플리케이션입니다. 
 
-## Getting Started
+![image](https://user-images.githubusercontent.com/83049523/169774406-074e984d-72e7-4f5a-9633-ec172dbf9081.png)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 개요
+본 프로젝트는 바닐라 자바스크립트로 구현 된 여러 가지의 기능이 있습니다. 대표적으로 할 일(todo-list), 그림 일기, 계산기 기능이 있으며 그외 부가적인 기능으로는 시계, 인용구, 날씨 기능으로 구성 되어 있습니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 사용된 언어 및 플러그인
+- `typescript` 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the
-file.
 
-This project uses
-[`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to
-automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 주요 기능
 
-## Learn More
+### 1. 할 일(Todo-list)
+오늘의 할 일을 체크할 수 있는 체크 리스트입니다. 로컬스토리지에 할 일의 정보가 기록되어 새로고침을 해도 정보가 그대로 남을 수 있습니다.
 
-To learn more about Next.js, take a look at the following resources:
+![image](https://user-images.githubusercontent.com/83049523/169799216-1e1d752c-725b-44d5-8467-9abfb7e4e4ba.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback
-and contributions are welcome!
+### 2. 그림 일기
 
-## Deploy on Vercel
+canvas 의 2D 그래픽을 이용하여 그림판을 구현했습니다.
+여러 가지 색상을 선택하여 그림을 그리거나 바탕색을 칠할 수 있으며 선의 굵기도 조절할 수 있습니다. 
 
-The easiest way to deploy your Next.js app is to use the
-[Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
+![image](https://user-images.githubusercontent.com/83049523/169799601-11ebf5a0-5f4a-49b9-b7eb-8cf8eb547f48.png)
 
-Check out our
-[Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying)
-for more details.
+---
+
+### 3. 계산기
+
+사칙연산을 할 수 있는 계산기 입니다. 
+
+![image](https://user-images.githubusercontent.com/83049523/169800523-5595c115-2ccc-47cf-bb06-c21ac5b3a244.png)
+
+
+---
+
+## 문제 해결 및 성능 개선
+
+1. 인용문: 차지하는 영역을 미리 숨겨 놓고, 사용자가 원할 때 hover 만해서 열어 볼 수 있도록 배치
+
+2. Todo list:
+    - 평상시엔 숨겨놓았다가, 원할 때마다 버튼을 누르면 해당 영역이 나오도록 설정
+
+    - 완료된(completed) todo 를 밑줄, 체크 표시할 수 있는 기능을 추가
+
+    - Todo 삭제버튼이 평소에 노출되지 않고, 호버했을때만 삭제버튼 등장
+
+4. 수정버튼을 제작해서 로그인한 이름을 다시 로그아웃해서 수정할 수 있는 기능을 추가
+
+---
+
+## 프로젝트 의의
+로컬스토리지를 이용하여 todo-list 를 구현하였는데, 이는 처음으로 CRUD 의 개념을 잡기 아주 좋은 경험이었습니다. 또한 스크립트로 그래픽을 표현하는 canvas 를 사용한 점이나, 계산기를 구현한 것은 일상생활 속에서 사용되는 기능을 직접 만들어보았다는 점에서 뜻 깊은 의의가 있었습니다. 나머지 부가기능에서 외부 API 를 가져와 적용하는 날씨 기능 역시 새로운 경험을 가져다 주었습니다.
