@@ -9,7 +9,10 @@
 
 ### 사용된 기술
 `Next.js` `Typescript` `Jotai` `React-query` `Emotion` `Supabase`
--  
+- App Router 기반으로 라우팅이 자동화 되어있다는 점, SSR 및 CSR 을 분리하여 적용할 수 있다는 점, 그리고 API Routes 를 통해 간단한 서버 API 를 바로 생성할 수 있다는 점에서 Next.js 를 사용하게 되었습니다.
+- 간단한 중앙데이터 관리를 위해 Recoil 을 사용하려 하였으나, 개발자 지원 중단 및 React 18 버전과의 이슈 등으로 인해 그와 매우 유사한 구조를 가진 Jotai 를 사용하였습니다.
+- 데이터 패칭과 인피니트 스크롤링에 있어 최적화된 라이브러리에서 가장 유용한 기능인 React-query 를 사용하였습니다.
+- 간단한 CRUD 의 백엔드 환경을 조성하기 위해 supabase 를 활용하였습니다. firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능을 가졌다는 내용에 의ㅔ
 
 
 ## 주요 기능
