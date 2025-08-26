@@ -242,6 +242,35 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 ---
 
+
+## 4. 넷플릭스 클론
+>영화를 검색할 수 있는 넷플릭스 클론 사이트를 구현하였습니다. [링크](https://hyejin-toy-project.vercel.app/movie)
+
+<img width="1453" height="722" alt="image" src="https://github.com/user-attachments/assets/cbce361f-18da-4a9a-9798-4949b2577d02" />
+
+
+
+<br>
+<br>
+
+### 주요 기능
+
+- React-Query 의 useInfiniteQuery 를 활용하여, 스크롤이 밑에 다다르면 추가적으로 영화 목록이 생기도록 인피니트 스크롤 구현
+    
+- 동적 라우팅을 활용하여 영화 상세페이지 구현
+
+  <img width="693" height="475" alt="image" src="https://github.com/user-attachments/assets/3ee65df2-820d-42df-8739-eb2ff9c13234" />
+
+
+  <img width="1253" height="666" alt="image" src="https://github.com/user-attachments/assets/a4a09a71-c744-4831-86a4-5dc3d37b6211" />
+
+
+  
+- 영화 이름 검색 기능
+
+<br>
+<br>
+
 ## 문제 해결 및 성능 개선
 
 1. 나의 할 일
@@ -250,12 +279,11 @@ firebase 와 유사하지만 SQL 기반인 점과 그 외 더 좋은 성능으�
 
 2. 인스타그램 클론
    - 실시간 onlineAt 데이터를 받아 현재 유저가 접속 상태인지에 대한 정보를 초록점으로 표시하여 사용자 경험 개선
+   - 새로운 채팅이 발생할 때마다 맨 아래로 스크롤 되도록 인터랙션 구현
    
 4. 파일 업로드
    - 서버액션에서 실행한 Form Data 형식의 데이터 요청에 이슈가 생겨 API Router 를 통해 클라이언트 요청하여 해결
    - 파일이 업로드되는 동안 클릭 및 드래그 기능을 막아 중복 요청을 방지
-     
-5. 
 
 <br>
 <br>
